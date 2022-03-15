@@ -10,14 +10,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LebuDigital">
         <activity
-            android:name=".MainActivity"
+            android:name=".auth.LoginEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.RegisterActivity"
             android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".intro.Intro3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".intro.Intro2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".intro.Intro1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".splashscreen.SplashScreenActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
