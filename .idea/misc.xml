@@ -3,13 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.118" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/drawable/ic_transaksi.xml" value="0.118" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/drawable/imgkotalsaldo.xml" value="0.118" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_intro1.xml" value="0.25" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_intro2.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_intro3.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_login_email.xml" value="0.21" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_register.xml" value="0.15695067264573992" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/activity_splash_screen.xml" value="0.16847826086956522" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/fragment_beranda.xml" value="0.25" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/fragment_chat.xml" value="0.16847826086956522" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/fragment_transaksi.xml" value="0.16847826086956522" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/layout/shimmerhorizontal.xml" value="0.16847826086956522" />
+        <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

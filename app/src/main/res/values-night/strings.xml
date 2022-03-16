@@ -4,4 +4,9 @@
     <string name="signup">Sign Up</string>
     <string name="selanjutnya">Selanjutnya</string>
     <string name="login">Login</string>
+    <string name="title_beranda">Beranda</string>
+    <string name="transaksi">Transaksi</string>
+    <string name="chat">Chat</string>
+    <string name="berita_desa_edukasi_desa"><![CDATA[Berita Desa & Edukasi Desa]]></string>
+    <string name="ekonomidantransaksi"><![CDATA[Ekonomi & Transaksi]]></string>
 </resources>
