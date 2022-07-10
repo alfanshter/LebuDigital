@@ -2,21 +2,83 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lebudigital.lebudigital">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LebuDigital">
+        android:theme="@style/Theme.LebuDigital"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.beranda.menu.grubberita.pelatihan.DetailPelatihanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.grubberita.pelatihan.PelatihanActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.lebudigital.lebudigital.ui.beranda.menu.grubberita.kegiatandesa.KegiatanDesaDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.lebudigital.lebudigital.ui.beranda.menu.grubberita.kegiatandesa.KegiatanDesaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.grubinformasi.desaterdekat.DesaTerdekatActivity"
+            android:exported="false" />
+        <!--
+                   TODO: Before you run your application, you need a Google Maps API key.
+
+                   To get one, follow the directions here:
+
+                      https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+                   Once you have your API key (it starts with "AIza"), define a new property in your
+                   project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+                   "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+        <activity
+            android:name=".ui.beranda.menu.grubinformasi.geospasial.GeospasialActivity"
+            android:exported="false"
+            android:label="@string/title_activity_geospasial" />
+        <activity
+            android:name=".ui.beranda.menu.berita.budaya.BudayaLokalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.grubinformasi.fasilitasdesa.DetailFasilitasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.grubinformasi.fasilitasdesa.FasilitasDesaActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.lebudigital.lebudigital.ui.beranda.menu.grubinformasi.profildesa.ProfilDesaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.berita.BeritaDesaDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.berita.BeritaDesaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.tvcc.TvccActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beranda.menu.tvcc.TvccDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".auth.LoginEmailActivity"
             android:exported="false" />
         <activity
             android:name=".auth.RegisterActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".intro.Intro3Activity"
             android:exported="false" />
@@ -31,18 +93,16 @@
             android:exported="false" />
         <activity
             android:name=".splashscreen.SplashScreenActivity"
-            android:exported="true" >
-        </activity>
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

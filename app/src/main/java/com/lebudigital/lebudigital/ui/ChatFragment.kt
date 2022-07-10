@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.databinding.FragmentChatBinding
-import com.lebudigital.lebudigital.databinding.FragmentTransaksiBinding
 
 class ChatFragment : Fragment() {
 

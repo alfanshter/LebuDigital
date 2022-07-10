@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color"
+    android:layout_width="match_parent"
+    android:layout_height="109dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    app:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_toLeftOf="@id/rvfoto"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ovale"
+            android:fontFamily="@font/roboto_medium"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingRight="5dp"
+            android:id="@+id/txttanggalterbit"
+            android:text="13 Juli 2022"
+            android:textColor="#6A6A6A"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/txtjudul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Berita"
+            android:textColor="@color/black"
+            android:textFontWeight="600"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/txtbaca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Baca Selengkapnya"
+            android:textColor="@color/merah"
+            android:textFontWeight="600"
+            android:textSize="9dp" />
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rvfoto"
+        android:layout_width="85dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="20dp"
+        android:layout_height="85dp"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/imgfoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color"
+    android:layout_width="match_parent"
+    android:layout_height="109dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    app:cardCornerRadius="4dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rvfoto"
+        android:layout_width="93dp"
+        android:layout_marginLeft="23dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_height="93dp">
+
+        <ImageView
+            android:id="@+id/imgfoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@id/rvfoto"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txttanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ovale"
+            android:fontFamily="@font/roboto_medium"
+            android:paddingLeft="5dp"
+            android:paddingTop="2dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="2dp"
+            android:text="13 Juli 2022 | 07:00"
+            android:textColor="#6A6A6A"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/txtjudul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="PERAN KADES DALAM PPKM COVID 19"
+            android:textColor="@color/black"
+            android:textFontWeight="600"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_place_24"
+                android:backgroundTint="@color/merah"/>
+
+            <TextView
+                android:id="@+id/txtalamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Alamat"
+                android:textColor="@color/merah"
+                android:textFontWeight="600"
+                android:textSize="9dp" />
+        </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+</RelativeLayout>

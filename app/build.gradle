@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 apply plugin: 'kotlin-android-extensions'
@@ -35,6 +36,9 @@ android {
     dataBinding{
         enabled = true
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -46,8 +50,25 @@ dependencies {
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.6.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation "com.squareup.okhttp3:okhttp:3.12.1"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     //shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //Slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+    implementation 'com.github.andrefrsousa:SuperBottomSheet:1.5.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

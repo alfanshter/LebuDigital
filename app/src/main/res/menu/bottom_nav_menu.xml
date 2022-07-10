@@ -5,15 +5,14 @@
         android:id="@+id/navigation_beranda"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/title_beranda" />
-
-    <item
-        android:id="@+id/navigation_transaksi"
-        android:icon="@drawable/btnhistory"
-        android:title="@string/transaksi" />
-
     <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_baseline_chat_24"
         android:title="@string/chat" />
+
+    <item
+        android:id="@+id/navigation_profil"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/profil" />
 
 </menu>

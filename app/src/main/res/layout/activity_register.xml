@@ -1,101 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     android:paddingLeft="36dp"
-    android:paddingRight="36dp"
-    android:paddingTop="36dp"
-    tools:context=".auth.RegisterActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:paddingLeft="36dp"
+        android:paddingRight="36dp"
+        android:paddingTop="36dp"
+        tools:context=".auth.RegisterActivity">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/imgregister"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/signup"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:textSize="33dp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/ic_baseline_phone_24"
-            android:hint="Telepon"
-            android:drawablePadding="10dp"
-            android:id="@+id/edttelepon"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
-            android:id="@+id/edtemail"
-            android:hint="Email"
-            android:drawablePadding="10dp"
-            />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/imgregister"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:id="@+id/edtnamalengkap"
-            android:hint="Nama Lengkap"
-            android:drawablePadding="10dp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/signup"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:textSize="33dp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="12dp"
-            android:id="@+id/txtketerangan"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_baseline_phone_24"
+                android:hint="Telepon"
+                android:drawablePadding="10dp"
+                android:id="@+id/edttelepon" />
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:textAllCaps="false"
-            app:cornerRadius="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/merah"
-            android:text="@string/selanjutnya"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
+                android:id="@+id/edtemail"
+                android:hint="Username"
+                android:drawablePadding="10dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="12dp"
-            android:text="Sudah punya akun? Login"
-            android:id="@+id/txtsudahpunyaakun"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:id="@+id/edtnamalengkap"
+                android:hint="Nama Lengkap"
+                android:drawablePadding="10dp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:id="@+id/edtpassword"
+                android:hint="Password"
+                android:drawablePadding="10dp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:id="@+id/edtulangipassword"
+                android:hint="Ulangi Password"
+                android:drawablePadding="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Provinsi"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textFontWeight="700"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:id="@+id/spnprovinsi"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kotakinput"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kabupaten/Kota"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textFontWeight="700"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:id="@+id/spnkota"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kotakinput"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kecamatan"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textFontWeight="700"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:id="@+id/spnkecamatan"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kotakinput"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desa"
+                android:textSize="14dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textFontWeight="700"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:id="@+id/spndesa"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kotakinput"
+                android:layout_marginTop="10dp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:id="@+id/edtalamatlengkap"
+                android:hint="Alamat Lengkap"
+                android:drawablePadding="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="12dp"
+                android:id="@+id/txtketerangan" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
+                android:id="@+id/btndaftar"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/merah"
+                android:text="@string/selanjutnya" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="12dp"
+                android:text="Sudah punya akun? Login"
+                android:id="@+id/txtsudahpunyaakun" />
 
 
+        </LinearLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</layout>

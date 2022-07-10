@@ -11,4 +11,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="berita_desa_edukasi_desa"><![CDATA[Berita Desa & Edukasi Desa]]></string>
     <string name="ekonomidantransaksi"><![CDATA[Ekonomi & Transaksi]]></string>
+    <string name="title_activity_geospasial">GeospasialActivity</string>
+    <string name="profil">Profil</string>
 </resources>

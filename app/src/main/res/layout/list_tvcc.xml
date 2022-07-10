@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="4dp"
+    android:layout_width="170dp"
+    android:layout_height="163dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="9dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:id="@+id/rvfoto"
+            android:layout_height="96dp">
+            <ImageView
+                android:id="@+id/imgfoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TVCC 1"
+            android:textSize="15dp"
+            android:id="@+id/txtjudul"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/black"
+            android:textFontWeight="600"
+            android:fontFamily="@font/roboto_medium"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="deskripsi"
+            android:textSize="10dp"
+            android:layout_marginTop="7dp"
+            android:id="@+id/txtnarasi"
+            android:textColor="@color/abu"
+            android:textFontWeight="600"
+            android:fontFamily="@font/roboto_medium"/>
+    </LinearLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

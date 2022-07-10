@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FDFDFD"
-        tools:context=".ui.BerandaFragment">
+        tools:context=".ui.beranda.BerandaFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Rp. 5000.000"
+                        android:text="Coming Soon"
                         android:textColor="@color/black"
                         android:textSize="16dp"
                         android:textStyle="bold" />
@@ -357,41 +357,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/btnlayanandesa"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/btnlayanandesa" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Layanan Desa"
-                                android:textColor="@color/black"
-                                android:textSize="11dp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lnaktif1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:visibility="gone"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
-
-                        <LinearLayout
                             android:id="@+id/btnpelatihan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -414,78 +379,114 @@
                                 android:textColor="@color/black"
                                 android:textSize="11dp" />
                         </LinearLayout>
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/btnlayanandesa"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:orientation="vertical">-->
 
-                        <LinearLayout
-                            android:id="@+id/btnpenyuluhan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:background="@drawable/btnlayanandesa" />-->
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/btnpenyuluhan" />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                android:fontFamily="@font/roboto_medium"-->
+<!--                                android:text="Layanan Desa"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="11dp" />-->
+<!--                        </LinearLayout>-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Penyuluhan"
-                                android:textColor="@color/black"
-                                android:textSize="11dp" />
-                        </LinearLayout>
+                    </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/btnprodukunggulan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/lnaktif1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/btnprodukunggulan" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Produk Unggulan"
-                                android:textColor="@color/black"
-                                android:textSize="11dp" />
-                        </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/btnwisatadesa"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/btnpenyuluhan"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:orientation="vertical">-->
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/btnwisatadesa" />
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:background="@drawable/btnpenyuluhan" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Wisata Desa"
-                                android:textColor="@color/black"
-                                android:textSize="11dp" />
-                        </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                android:fontFamily="@font/roboto_medium"-->
+<!--                                android:text="Penyuluhan"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="11dp" />-->
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/btnprodukunggulan"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:background="@drawable/btnprodukunggulan" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                android:fontFamily="@font/roboto_medium"-->
+<!--                                android:text="Produk Unggulan"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="11dp" />-->
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/btnwisatadesa"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:background="@drawable/btnwisatadesa" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_marginTop="10dp"-->
+<!--                                android:fontFamily="@font/roboto_medium"-->
+<!--                                android:text="Wisata Desa"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="11dp" />-->
+<!--                        </LinearLayout>-->
 
                     </LinearLayout>
 
