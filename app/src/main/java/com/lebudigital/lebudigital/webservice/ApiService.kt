@@ -5,13 +5,17 @@ import com.lebudigital.lebudigital.model.auth.PostResponse
 import com.lebudigital.lebudigital.model.auth.UsersModel
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaResponse
 import com.lebudigital.lebudigital.model.budayalokal.BudayaLokalResponse
+import com.lebudigital.lebudigital.model.chatpencarian.PencarianUserResponse
+import com.lebudigital.lebudigital.model.desaterdekat.DesaTerdekatResponse
 import com.lebudigital.lebudigital.model.fasilitas.FasilitasResponse
 import com.lebudigital.lebudigital.model.geospasial.GeoSpasialResponse
+import com.lebudigital.lebudigital.model.login.LoginResponse
 import com.lebudigital.lebudigital.model.pelatihan.PelatihanResponse
 import com.lebudigital.lebudigital.model.profildesa.KegiatanDesaResponse
 import com.lebudigital.lebudigital.model.profildesa.ProfilModel
 import com.lebudigital.lebudigital.model.profildesa.ProfilResponse
 import com.lebudigital.lebudigital.model.tvcc.TvccResponse
+import com.lebudigital.lebudigital.model.users.UsersResponse
 import com.lebudigital.lebudigital.model.versi.VersiResponse
 import com.lebudigital.lebudigital.model.wilayah.ResponseKecamatan
 import com.lebudigital.lebudigital.model.wilayah.ResponseKelurahan
@@ -48,7 +52,7 @@ interface ApiService {
     fun login(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<PostResponse>
+    ): Call<LoginResponse>
 
     //=====================Versi=====================
     //versi
@@ -58,7 +62,7 @@ interface ApiService {
     ): Call<VersiResponse>
     //=====================END Versi=====================
 
-  //=====================Profil=====================
+    //=====================Profil=====================
     //versi
     @GET("profil")
     fun profil(
@@ -93,7 +97,7 @@ interface ApiService {
     @GET("profildesa")
     fun profildesa(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<ProfilResponse>
 
     //=======================END PROFIL DESA==================
@@ -102,7 +106,7 @@ interface ApiService {
     @GET("fasilitasdesa")
     fun fasilitasdesa(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<FasilitasResponse>
 
     //=======================END FASILITAS DESA==================
@@ -111,7 +115,7 @@ interface ApiService {
     @GET("budayalokal")
     fun budayalokal(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<BudayaLokalResponse>
     //=======================BUDAYA LOKAL==================
 
@@ -119,15 +123,25 @@ interface ApiService {
     @GET("geospasial")
     fun geospasial(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<GeoSpasialResponse>
     //=======================END GEOSPASIAL==================
+
+    //=======================DESA TERDEKAT==================
+    @GET("desa_terdekat")
+    fun desa_terdekat(
+        @Header("X-Authorization") token: String,
+        @Query("id") id: Int,
+        @Query("latitude") latitude: String,
+        @Query("longitude") longitude: String
+    ): Call<DesaTerdekatResponse>
+    //=======================END DESA TERDEKAT==================
 
     //=======================Kegiatan Desa==================
     @GET("kegiatandesa")
     fun kegiatandesa(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<KegiatanDesaResponse>
     //=======================END Kegiatan Desa==================
 
@@ -135,27 +149,34 @@ interface ApiService {
     @GET("pelatihan")
     fun pelatihan(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<PelatihanResponse>
+    //=======================END Pelatihan Desa==================
+
+    //=======================Pelatihan Desa==================
+    @GET("profil")
+    fun users(
+        @Query("id") id: Int
+    ): Call<UsersResponse>
     //=======================END Pelatihan Desa==================
 
     //=======================BERITA DESA==================
     @GET("beritadesa")
     fun beritadesa(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<BeritaDesaResponse>
 
     @GET("beritadesa_popular")
     fun beritadesa_popular(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<BeritaDesaResponse>
 
     @GET("tambah_kunjungan_beritadesa")
     fun tambah_kunjungan_beritadesa(
         @Header("X-Authorization") token: String,
-        @Query("id") id : Int
+        @Query("id") id: Int
     ): Call<PostResponse>
     //=======================END BERITA DESA==================
 
@@ -179,4 +200,10 @@ interface ApiService {
     ): Call<ResponseKelurahan>
 
     //=====================END WILAYAH=====================
+
+    //Pencarian User
+    @GET("search_user")
+    fun search_user(
+        @Query("email") email: String
+    ): Call<PencarianUserResponse>
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "122232958487",
+    "firebase_url": "https://lebudigital-c0249-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "lebudigital-c0249",
+    "storage_bucket": "lebudigital-c0249.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122232958487:android:afbdc6502bc87a7f537652",
+        "android_client_info": {
+          "package_name": "com.lebudigital.lebudigital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122232958487-d1q0cecg831o2e4k62bgasre5ngo570h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lebudigital.lebudigital",
+            "certificate_hash": "d128626d7495a213d8774ec8eec03205a508d4be"
+          }
+        },
+        {
+          "client_id": "122232958487-p86f1tu27oeunnqo9pcugo5epgesfm34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEWSTB29o4UACQf1pHZal1rkrOeClKbDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122232958487-p86f1tu27oeunnqo9pcugo5epgesfm34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

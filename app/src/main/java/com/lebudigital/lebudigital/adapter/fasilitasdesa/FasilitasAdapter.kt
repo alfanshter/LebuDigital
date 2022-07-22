@@ -10,8 +10,6 @@ import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.model.fasilitas.FasilitasModel
 import com.lebudigital.lebudigital.webservice.Constant
 import com.squareup.picasso.Picasso
-import java.text.DecimalFormat
-import java.text.NumberFormat
 
 class FasilitasAdapter(
     private val notesList: MutableList<FasilitasModel>

@@ -40,10 +40,10 @@ class TvccActivity : AppCompatActivity(), AnkoLogger {
 
         binding.txtmenu.text = menu
 
-        binding.rvtvcc.layoutManager = GridLayoutManager(this, 2)
+        binding.rvtvcc.layoutManager = LinearLayoutManager(this)
         binding.rvtvcc.setHasFixedSize(true)
-        (binding.rvtvcc.layoutManager as GridLayoutManager).orientation =
-            GridLayoutManager.VERTICAL
+        (binding.rvtvcc.layoutManager as LinearLayoutManager).orientation =
+            LinearLayoutManager.VERTICAL
 
         binding.btnback.setOnClickListener {
             finish()

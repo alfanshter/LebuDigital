@@ -46,6 +46,7 @@
                 android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/ic_baseline_phone_24"
                 android:hint="Telepon"
+                android:inputType="number"
                 android:drawablePadding="10dp"
                 android:id="@+id/edttelepon" />
 
@@ -74,6 +75,7 @@
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:id="@+id/edtpassword"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:drawablePadding="10dp" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,6 +85,7 @@
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:id="@+id/edtulangipassword"
                 android:hint="Ulangi Password"
+                android:inputType="textPassword"
                 android:drawablePadding="10dp" />
 
             <TextView

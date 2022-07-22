@@ -57,23 +57,22 @@
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
+        <com.gurudev.fullscreenvideowebview.FullScreenVideoWebView
             android:id="@+id/imgfoto"
-            android:layout_width="match_parent"
-            android:background="@color/abuputih"
-            android:layout_height="220dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="-20dp"
-            android:background="@drawable/kotakcorneratas"
             android:orientation="vertical"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

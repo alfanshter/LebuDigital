@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color"
+    android:layout_width="match_parent"
+    android:layout_height="97dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/abuputih"
+    app:cardCornerRadius="4dp">
+
+    <ImageView
+        android:id="@+id/rvfoto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/imgprofil" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@id/rvfoto"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtnama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Admin"
+            android:textColor="@color/merah"
+            android:textFontWeight="600"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtchat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="-"
+            android:textSize="13dp" />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

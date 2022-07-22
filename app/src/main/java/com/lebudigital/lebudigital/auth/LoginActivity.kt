@@ -9,8 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.databinding.ActivityLoginBinding
-import com.lebudigital.lebudigital.databinding.ActivityRegisterBinding
-import com.lebudigital.lebudigital.model.auth.PostResponse
+import com.lebudigital.lebudigital.model.login.LoginResponse
 import com.lebudigital.lebudigital.session.SessionManager
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
@@ -23,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginActivity : AppCompatActivity(),AnkoLogger {
+class LoginActivity : AppCompatActivity(), AnkoLogger {
     lateinit var binding: ActivityLoginBinding
     lateinit var progressDialog: ProgressDialog
     var api = ApiClient.instance()
@@ -38,9 +37,9 @@ class LoginActivity : AppCompatActivity(),AnkoLogger {
             startActivity<RegisterActivity>()
         }
 
-        txtloginemail.setOnClickListener {
-            startActivity<LoginEmailActivity>()
-        }
+//        txtloginemail.setOnClickListener {
+//            startActivity<LoginEmailActivity>()
+//        }
 
         binding.btnlogin.setOnClickListener {
             login(it)
@@ -59,18 +58,23 @@ class LoginActivity : AppCompatActivity(),AnkoLogger {
         ) {
             Constant.loading(true, progressDialog)
             api.login(
-                username,password            ).enqueue(object :
-                Callback<PostResponse> {
+                username, password
+            ).enqueue(object :
+                Callback<LoginResponse> {
                 override fun onResponse(
-                    call: Call<PostResponse>,
-                    response: Response<PostResponse>
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
                 ) {
                     try {
                         if (response.isSuccessful) {
                             if (response.body()!!.status == 1) {
                                 toast("Login berhasil")
                                 sessionManager.setLogin(true)
-                                sessionManager.setiduser(response.body()!!.user_id!!)
+                                sessionManager.setiduser(response.body()!!.data!!.id!!)
+                                sessionManager.setprovince_id(response.body()!!.data!!.provinceId!!)
+                                sessionManager.setregencie_id(response.body()!!.data!!.regencieId!!)
+                                sessionManager.setdistrict_id(response.body()!!.data!!.districtId!!)
+                                sessionManager.setvillage_id(response.body()!!.data!!.villageId!!)
                                 Constant.loading(false, progressDialog)
                                 startActivity<MainActivity>()
                             } else {
@@ -78,7 +82,7 @@ class LoginActivity : AppCompatActivity(),AnkoLogger {
                                 toast("Username atau password salah")
 
                             }
-                        }else{
+                        } else {
                             info { "dinda response ${response.code()}" }
                             Constant.loading(false, progressDialog)
                             toast("response salah")
@@ -90,7 +94,7 @@ class LoginActivity : AppCompatActivity(),AnkoLogger {
 
                 }
 
-                override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     info { "dinda failure ${t.message}" }
                     toast("silahkan hubungi developer")
 

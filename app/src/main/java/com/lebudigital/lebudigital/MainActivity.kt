@@ -21,6 +21,7 @@ import com.lebudigital.lebudigital.ui.ChatFragment
 import com.lebudigital.lebudigital.ui.beranda.BerandaFragment
 import com.lebudigital.lebudigital.ui.profil.ProfilFragment
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 class MainActivity : AppCompatActivity(),AnkoLogger {
     var mLocationRequest: LocationRequest? = null
@@ -79,9 +80,9 @@ class MainActivity : AppCompatActivity(),AnkoLogger {
         setContentView(R.layout.activity_main)
 
         progressDialog = ProgressDialog(this)
+        loading(true)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        loading(true)
 
         permission()
 
@@ -97,9 +98,9 @@ class MainActivity : AppCompatActivity(),AnkoLogger {
     @SuppressLint("MissingPermission")
     private fun permission() {
         mLocationRequest = LocationRequest()
-        mLocationRequest!!.interval = 120000 // two minute interval
+        mLocationRequest!!.interval = 5000 // two minute interval
 
-        mLocationRequest!!.fastestInterval = 120000
+        mLocationRequest!!.fastestInterval = 3000
         mLocationRequest!!.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -141,9 +142,15 @@ class MainActivity : AppCompatActivity(),AnkoLogger {
                     mCurrLocationMarker!!.remove()
                 }
 
-                latitudePosisi = mLastLocation!!.latitude.toString()
-                longitudePosisi = mLastLocation!!.longitude.toString()
-                //move map camera
+                if (latitudePosisi!=null){
+                    loading(false)
+                    info { "dinda $latitudePosisi" }
+                    latitudePosisi = mLastLocation!!.latitude.toString()
+                    longitudePosisi = mLastLocation!!.longitude.toString()
+                    //move map camera
+
+                }
+
 
             }
         }

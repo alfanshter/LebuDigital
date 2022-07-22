@@ -1,41 +1,37 @@
 package com.lebudigital.lebudigital.ui.beranda.menu.grubinformasi.geospasial
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.app.ProgressDialog
-import android.content.Intent
-import android.content.IntentSender
-import android.content.pm.PackageManager
-import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
-import android.os.Looper
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.lebudigital.lebudigital.MainActivity.Companion.latitudePosisi
 import com.lebudigital.lebudigital.MainActivity.Companion.longitudePosisi
-import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.adapter.beritadesa.BeritaDesaAdapter
-import com.lebudigital.lebudigital.databinding.ActivityBeritaDesaBinding
 import com.lebudigital.lebudigital.databinding.ActivityGeospasialBinding
+import com.lebudigital.lebudigital.model.geospasial.GeoSpasialResponse
 import com.lebudigital.lebudigital.session.SessionManager
 import com.lebudigital.lebudigital.utils.Cepat
 import com.lebudigital.lebudigital.webservice.ApiClient
+import com.lebudigital.lebudigital.webservice.Constant
 import org.jetbrains.anko.AnkoLogger
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import com.lebudigital.lebudigital.R
 import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
 
 class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
 
@@ -59,10 +55,8 @@ class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
         }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
-
-
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
+            .findFragmentById(com.lebudigital.lebudigital.R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
 
@@ -72,23 +66,82 @@ class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-         // Add a marker in lokasiku and move the camera
-        val lokasiku = LatLng(
-            latitudePosisi!!.toDouble(),
-            longitudePosisi!!.toDouble()
-        )
+
+        api.geospasial(Constant.API_KEY_BACKEND,sessionManager.getiduser()!!).enqueue(object : Callback<GeoSpasialResponse>{
+            override fun onResponse(
+                call: Call<GeoSpasialResponse>,
+                response: Response<GeoSpasialResponse>
+            ) {
+                if (response.isSuccessful){
+                    // Add a marker in lokasiku and move the camera
+                    val sydney = LatLng(response.body()!!.desa!!.latitude!!, response.body()!!.desa!!.longitude!!)
+                    mMap.addMarker(
+                        MarkerOptions().position(sydney)
+                            .title(response.body()!!.desa!!.desa!!.name) // below line is use to add custom marker on our map.
+                            .icon(BitmapFromVector(applicationContext, com.lebudigital.lebudigital.R.drawable.imgmarker))
+                    )
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18f))
+
+                    if (latitudePosisi!=null ){
+                        val lokasiku = LatLng(
+                            latitudePosisi!!.toDouble(),
+                            longitudePosisi!!.toDouble()
+                        )
+
+                        binding.txtlokasisekarang.text = Cepat.tampilkan_alamat(
+                            latitudePosisi!!.toDouble(),
+                            longitudePosisi!!.toDouble(),
+                            this@GeospasialActivity
+                        )
 
 
-        binding.txtlokasisekarang.text = Cepat.tampilkan_alamat(
-            latitudePosisi!!.toDouble(),
-            longitudePosisi!!.toDouble(),
-            this
-        )
+
+                    }
+                }else{
+                    info { "dinda kesalahan response" }
+                }
+            }
+
+            override fun onFailure(call: Call<GeoSpasialResponse>, t: Throwable) {
+                info { "dinda ${t.message}" }
+            }
+
+        })
 
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(lokasiku))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lokasiku, 18f))
         googleMap.isMyLocationEnabled = true
+    }
+
+    private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        // below line is use to generate a drawable.
+        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
+
+        // below line is use to set bounds to our vector drawable.
+        vectorDrawable!!.setBounds(
+            0,
+            0,
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight
+        )
+
+        // below line is use to create a bitmap for our
+        // drawable which we have added.
+        val bitmap = Bitmap.createBitmap(
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+
+        // below line is use to add bitmap in our canvas.
+        val canvas = Canvas(bitmap)
+
+        // below line is use to draw our
+        // vector drawable in canvas.
+        vectorDrawable.draw(canvas)
+
+        // after generating our bitmap we are returning our bitmap.
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
 }

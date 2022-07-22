@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'com.google.gms.google-services'
+
 }
 
 apply plugin: 'kotlin-android-extensions'
@@ -69,6 +71,13 @@ dependencies {
 
     implementation 'com.github.andrefrsousa:SuperBottomSheet:1.5.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
+
+    //video
+    implementation 'com.github.RachitShah02:Webview-Video-Fullscreen:1.0.2'
+
+    //gropie
+    implementation "com.xwray:groupie:2.1.0"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

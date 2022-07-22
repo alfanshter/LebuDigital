@@ -7,18 +7,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.lebudigital.lebudigital.R
-import com.lebudigital.lebudigital.adapter.TvccAdapter
 import com.lebudigital.lebudigital.adapter.fasilitasdesa.FasilitasAdapter
 import com.lebudigital.lebudigital.adapter.profildesa.GambarDesaSlider
 import com.lebudigital.lebudigital.databinding.ActivityFasilitasDesaBinding
-import com.lebudigital.lebudigital.databinding.ActivityProfilDesaBinding
 import com.lebudigital.lebudigital.model.fasilitas.FasilitasModel
 import com.lebudigital.lebudigital.model.fasilitas.FasilitasResponse
 import com.lebudigital.lebudigital.model.profildesa.GambarDesaModel
-import com.lebudigital.lebudigital.model.tvcc.TvccModel
 
 import com.lebudigital.lebudigital.session.SessionManager
-import com.lebudigital.lebudigital.ui.beranda.menu.tvcc.TvccDetailActivity
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
 import com.smarteist.autoimageslider.SliderView

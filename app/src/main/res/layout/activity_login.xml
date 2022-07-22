@@ -85,17 +85,17 @@
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textSize="12dp"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="@color/merah"
-                    android:textStyle="bold"
-                    android:text="Login dengan Email"
-                    android:id="@+id/txtloginemail" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txtloginemail"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:fontFamily="@font/roboto_medium"-->
+<!--                    android:text="Login dengan Email"-->
+<!--                    android:textColor="@color/merah"-->
+<!--                    android:textSize="12dp"-->
+<!--                    android:textStyle="bold" />-->
 
 
             </RelativeLayout>

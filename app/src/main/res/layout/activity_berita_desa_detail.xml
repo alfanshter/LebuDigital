@@ -26,11 +26,11 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/btnback"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:id="@+id/btnback"
                     android:background="@drawable/ic_baseline_keyboard_backspace_24"
                     android:backgroundTint="@color/white" />
 

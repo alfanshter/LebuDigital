@@ -1,6 +1,7 @@
 package com.lebudigital.lebudigital.model.profildesa
 
 import com.google.gson.annotations.SerializedName
+import java.math.BigInteger
 
 data class ProfilModel(
 
@@ -119,5 +120,5 @@ data class Desa(
 	val createdAt: Any? = null,
 
 	@field:SerializedName("id")
-	val id: Long? = null
+	val id: BigInteger? = null
 )

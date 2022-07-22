@@ -71,7 +71,19 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
                         if (response.isSuccessful) {
                             val notesList = mutableListOf<PelatihanMinggu>()
                             val data = response.body()
-                            if (data!!.pelatihanMingguIni!!.isEmpty()) {
+
+                            val imageList: ArrayList<String> = ArrayList()
+
+                            for (popular in data!!.pelatihanAkanDatang!!){
+                                slidermodel.add(popular)
+                                //slider
+                                imageList.add(Constant.STORAGE + popular.foto!!)
+
+                            }
+                            setImageInSlider(imageList, binding.imageSlider, slidermodel)
+
+
+                            if (data.pelatihanMingguIni!!.isEmpty()) {
                                 binding.shimmermakanan.stopShimmer()
                                 binding.shimmermakanan.visibility = View.GONE
                                 binding.txtnodata.visibility = View.VISIBLE
@@ -104,16 +116,6 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
                                     })
                                     mAdapter.notifyDataSetChanged()
                                 }
-
-                                val imageList: ArrayList<String> = ArrayList()
-
-                                for (popular in data.pelatihanAkanDatang!!){
-                                    slidermodel.add(popular)
-                                    //slider
-                                    imageList.add(Constant.STORAGE + popular.foto!!)
-
-                                }
-                                setImageInSlider(imageList, binding.imageSlider, slidermodel)
 
 
 

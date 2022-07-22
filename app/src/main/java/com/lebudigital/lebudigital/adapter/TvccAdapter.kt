@@ -59,14 +59,14 @@ class TvccAdapter(
         val note = notesList[position]
         Picasso.get().load(Constant.STORAGE + note.foto).centerCrop().fit().into(holder.imgfoto)
         //Subsquence batasan tampilan nama
-        if (note.judul!!.length > 13) {
-            holder.txtjudul.text = "${note.judul.subSequence(0, 13)}.."
+        if (note.judul!!.length > 40) {
+            holder.txtjudul.text = "${note.judul.subSequence(0, 40)}.."
         } else {
             holder.txtjudul.text = note.judul
         }
 
-        if (note.narasi!!.length > 23) {
-            holder.txtnarasi.text = "${note.narasi.subSequence(0, 23)}.."
+        if (note.narasi!!.length > 60) {
+            holder.txtnarasi.text = "${note.narasi.subSequence(0, 60)}.."
         } else {
             holder.txtnarasi.text = note.narasi
         }

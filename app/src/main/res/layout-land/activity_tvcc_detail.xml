@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.beranda.menu.tvcc.TvccDetailActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#9F0505"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/btnback"
+                    android:background="@drawable/ic_baseline_keyboard_backspace_24"
+                    android:backgroundTint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="TVCC"
+                    android:id="@+id/txtmenu"
+                    android:textColor="@color/white"
+                    android:textFontWeight="600"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/ic_baseline_notifications_24"
+                    android:backgroundTint="@color/white" />
+
+            </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.gurudev.fullscreenvideowebview.FullScreenVideoWebView
+            android:id="@+id/imgfoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-20dp"
+            android:orientation="vertical"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgfoto"
+            app:layout_constraintVertical_bias="0.19999999">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_margin="24dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#8A8A8A99"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="User" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="13 Juli 2021"
+                        android:id="@+id/txttanggal"
+                        android:textColor="@color/merah"
+                        android:textSize="12dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="JUDUL TVCC"
+                    android:textSize="23dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/txtjudul"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textFontWeight="400"
+                    android:id="@+id/txtnarasi"
+                    android:textColor="@color/abu"
+                    android:text="Deskripsi"
+                    android:layout_marginTop="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textFontWeight="400"
+                    android:gravity="center"
+                    android:id="@+id/txtlink"
+                    android:textColor="@color/abu"
+                    android:text="Link"
+                    android:layout_marginTop="20dp" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

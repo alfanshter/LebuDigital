@@ -145,11 +145,54 @@
                         android:background="@color/abu" />
                     <!--            nama gambar status-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvlokasi"
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmermakanan"
                         android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="24dp" />
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+                        app:shimmer_repeat_mode="restart"
+                        app:shimmer_shape="radial">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical">
+
+                            <include layout="@layout/shimmervertical" />
+
+                            <include layout="@layout/shimmervertical" />
+
+                            <include layout="@layout/shimmervertical" />
+
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                          android:layout_margin="24dp"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rvdesaterdekat"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Tidak ada data"
+                        android:id="@+id/txtnodata"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:textFontWeight="600"
+                        android:textSize="14dp" />
                 </LinearLayout>
 
 

@@ -1,21 +1,33 @@
 package com.lebudigital.lebudigital.ui.beranda.menu.tvcc
 
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
+import android.widget.MediaController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.databinding.ActivityTvccDetailBinding
 import com.lebudigital.lebudigital.model.tvcc.TvccModel
-import com.lebudigital.lebudigital.webservice.Constant
-import com.squareup.picasso.Picasso
+import org.jetbrains.anko.AnkoLogger
 import java.text.SimpleDateFormat
 
-class TvccDetailActivity : AppCompatActivity() {
+
+class TvccDetailActivity : AppCompatActivity(),AnkoLogger {
     var produkmodel: TvccModel? = null
     lateinit var binding: ActivityTvccDetailBinding
 
     var menu : String? = null
+    //video
+    private var mediacontroller: MediaController? = null
+    private var uri: Uri? = null
+    private var isContinuously = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tvcc_detail)
@@ -32,17 +44,29 @@ class TvccDetailActivity : AppCompatActivity() {
         }
 
         binding.txtmenu.text = menu
-        binding.txtjudul.text = produkmodel!!.judul.toString()
-        binding.txtnarasi.text = produkmodel!!.narasi.toString()
-        binding.txtlink.text = produkmodel!!.link.toString()
+        binding.txtjudul!!.text = produkmodel!!.judul.toString()
+        binding.txtnarasi!!.text = produkmodel!!.narasi.toString()
+        binding.txtlink!!.text = produkmodel!!.link.toString()
 
         val sdf = SimpleDateFormat("dd MMM yyyy")
         val currentDate = sdf.format(produkmodel!!.createdAt)
 
-        binding.txttanggal.text = currentDate
+        binding.txttanggal!!.text = currentDate
 
-        Picasso.get().load(Constant.STORAGE+produkmodel!!.foto).centerCrop().fit().into(binding.imgfoto)
-
+        playvideo()
 
     }
+    fun playvideo(){
+        binding.imgfoto.loadUrl(produkmodel!!.link!!)
+    }
+
+    override fun onBackPressed() {
+        if (binding.imgfoto.canGoBack()){
+            binding.imgfoto.goBack()
+        }else{
+            super.onBackPressed()
+
+        }
+    }
+
 }

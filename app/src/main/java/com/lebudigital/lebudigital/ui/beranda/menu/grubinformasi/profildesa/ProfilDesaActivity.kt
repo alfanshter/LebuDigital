@@ -71,12 +71,12 @@ class ProfilDesaActivity : AppCompatActivity(),AnkoLogger {
                             } else {
 
                                 binding.txtkecamatan.text = response.body()!!.profil!!.provinsi!!.name
-//                                binding.txtdesa.text = response.body()!!.profil!!.desa!!.name
+                                binding.txtdesa.text = response.body()!!.profil!!.desa!!.name
                                 binding.txtketerangan.text = response.body()!!.profil!!.deskripsi
                                 binding.txtalamat.text = response.body()!!.profil!!.alamat
                                 binding.txtnamakepaladesa.text = response.body()!!.profil!!.kepalaDesa
                                 binding.txtsekretarisdesa.text = response.body()!!.profil!!.sekretarisDesa
-
+                                binding.txtnamadesa.text = response.body()!!.profil!!.desa!!.name
                                 for (hasil in data.dataStatistik!!) {
 
                                     notesList.add(hasil)
