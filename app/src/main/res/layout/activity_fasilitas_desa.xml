@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.beranda.menu.grubinformasi.fasilitasdesa.FasilitasDesaActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -76,10 +77,17 @@
                     android:layout_height="173dp"
                     app:cardCornerRadius="7dp">
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/imgnotfound"
+                        android:visibility="gone"
+                        android:background="@drawable/gambartidakada"/>
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/imageSlider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -132,12 +140,47 @@
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmermakanan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginRight="10dp"
+                    app:shimmer_repeat_mode="restart"
+                    app:shimmer_shape="radial">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/shimmerhorizontal"/>
+
+                        <include layout="@layout/shimmerhorizontal"/>
+
+                        <include layout="@layout/shimmerhorizontal"/>
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:id="@+id/rvfasilitas"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgkosong"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/imgkosong"/>
             </LinearLayout>
 
 

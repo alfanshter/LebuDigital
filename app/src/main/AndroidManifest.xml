@@ -17,6 +17,9 @@
         android:theme="@style/Theme.LebuDigital"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.profil.UpdateProfilActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.chat.TambahChatActivity"
             android:exported="false" />
         <activity

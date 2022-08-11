@@ -165,7 +165,7 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
                         val adapter: ArrayAdapter<ResponseWilayah.Provinsi> =
                             ArrayAdapter<ResponseWilayah.Provinsi>(
                                 this@RegisterActivity,
-                                android.R.layout.simple_spinner_item,
+                                R.layout.spinner_item,
                                 spResponse
                             )
                         binding.spnprovinsi.adapter = adapter
@@ -223,7 +223,7 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
                         val adapter: ArrayAdapter<ResponseKota.Kota> =
                             ArrayAdapter<ResponseKota.Kota>(
                                 this@RegisterActivity,
-                                android.R.layout.simple_spinner_item,
+                                R.layout.spinner_item,
                                 kotaResponse
                             )
                         binding.spnkota.adapter = adapter
@@ -279,7 +279,7 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
                     val adapter: ArrayAdapter<ResponseKecamatan.Kecamatan> =
                         ArrayAdapter<ResponseKecamatan.Kecamatan>(
                             this@RegisterActivity,
-                            android.R.layout.simple_spinner_item,
+                            R.layout.spinner_item,
                             kecamatanresponse
                         )
                     binding.spnkecamatan.adapter = adapter
@@ -334,7 +334,7 @@ class RegisterActivity : AppCompatActivity(), AnkoLogger {
                     val adapter: ArrayAdapter<ResponseKelurahan.Kelurahan> =
                         ArrayAdapter<ResponseKelurahan.Kelurahan>(
                             this@RegisterActivity,
-                            android.R.layout.simple_spinner_item,
+                            R.layout.spinner_item,
                             kelurahanResponse
                         )
                     binding.spndesa.adapter = adapter

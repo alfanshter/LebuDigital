@@ -3,6 +3,7 @@ package com.lebudigital.lebudigital.ui.beranda.menu.grubinformasi.profildesa
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lebudigital.lebudigital.R
@@ -31,18 +32,21 @@ class ProfilDesaActivity : AppCompatActivity(),AnkoLogger {
     private lateinit var mAdapter: DataStatistikAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profil_desa)
         binding.lifecycleOwner = this
         binding.btnback.setOnClickListener {
             finish()
         }
         progressDialog = ProgressDialog(this)
+        Constant.loading(true, progressDialog)
         sessionManager = SessionManager(this)
+        data_statistik()
+
     }
 
     override fun onStart() {
         super.onStart()
-        data_statistik()
     }
 
 
@@ -64,19 +68,40 @@ class ProfilDesaActivity : AppCompatActivity(),AnkoLogger {
                 ) {
                     try {
                         if (response.isSuccessful) {
+                            Constant.loading(false, progressDialog)
                             val notesList = mutableListOf<DataStatistikModel>()
                             val data = response.body()
+
+                            binding.txtkecamatan.text = response.body()!!.profil!!.provinsi!!.name
+                            binding.txtdesa.text = response.body()!!.profil!!.desa!!.name
+                            binding.txtketerangan.text = response.body()!!.profil!!.deskripsi
+                            binding.txtalamat.text = response.body()!!.profil!!.alamat
+                            binding.txtnamakepaladesa.text = response.body()!!.profil!!.kepalaDesa
+                            binding.txtsekretarisdesa.text = response.body()!!.profil!!.sekretarisDesa
+                            binding.txtnamadesa.text = response.body()!!.profil!!.desa!!.name
+
+                            if (data!!.gambarDesa!!.isEmpty()){
+                                binding.imgnotfound.visibility = View.VISIBLE
+                                binding.imageSlider.visibility = View.GONE
+                            }else{
+                                binding.imgnotfound.visibility = View.GONE
+                                binding.imageSlider.visibility = View.VISIBLE
+                                val imageList: ArrayList<String> = ArrayList()
+
+                                for (gambardesa in data.gambarDesa!!){
+                                    gambarmodel.add(gambardesa)
+                                    //slider
+                                    imageList.add(Constant.STORAGE + gambardesa.foto!!)
+
+                                }
+                                setImageInSlider(imageList, binding.imageSlider, gambarmodel)
+
+                            }
                             if (data!!.dataStatistik!!.isEmpty()) {
 
                             } else {
 
-                                binding.txtkecamatan.text = response.body()!!.profil!!.provinsi!!.name
-                                binding.txtdesa.text = response.body()!!.profil!!.desa!!.name
-                                binding.txtketerangan.text = response.body()!!.profil!!.deskripsi
-                                binding.txtalamat.text = response.body()!!.profil!!.alamat
-                                binding.txtnamakepaladesa.text = response.body()!!.profil!!.kepalaDesa
-                                binding.txtsekretarisdesa.text = response.body()!!.profil!!.sekretarisDesa
-                                binding.txtnamadesa.text = response.body()!!.profil!!.desa!!.name
+
                                 for (hasil in data.dataStatistik!!) {
 
                                     notesList.add(hasil)
@@ -85,16 +110,6 @@ class ProfilDesaActivity : AppCompatActivity(),AnkoLogger {
 
                                     mAdapter.notifyDataSetChanged()
                                 }
-
-                                val imageList: ArrayList<String> = ArrayList()
-                                
-                                for (gambardesa in data.gambarDesa!!){
-                                    gambarmodel.add(gambardesa)
-                                    //slider
-                                    imageList.add(Constant.STORAGE + gambardesa.foto!!)
-
-                                }
-                                setImageInSlider(imageList, binding.imageSlider, gambarmodel)
 
                             }
 

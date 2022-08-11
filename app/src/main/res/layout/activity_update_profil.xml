@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.profil.ProfilFragment">
+        tools:context=".ui.profil.UpdateProfilActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,12 +47,14 @@
                     android:textColor="@color/abu"
                     android:textSize="11dp" />
 
-                <TextView
-                    android:id="@+id/txtnama"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtnama"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="-"
+                    android:background="@drawable/kotakinput"
                     android:textColor="@color/semiblack"
                     android:textSize="16dp" />
 
@@ -65,14 +67,17 @@
                     android:textColor="@color/abu"
                     android:textSize="11dp" />
 
-                <TextView
-                    android:id="@+id/txttelepon"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edttelepon"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:paddingLeft="20dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="-"
+                    android:background="@drawable/kotakinput"
                     android:textColor="@color/semiblack"
                     android:textSize="16dp" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,14 +88,17 @@
                     android:textColor="@color/abu"
                     android:textSize="11dp" />
 
-                <TextView
-                    android:id="@+id/txtemail"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtemail"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="-"
+                    android:background="@drawable/kotakinput"
                     android:textColor="@color/semiblack"
                     android:textSize="16dp" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -101,12 +109,14 @@
                     android:textColor="@color/abu"
                     android:textSize="11dp" />
 
-                <TextView
-                    android:id="@+id/txtnik"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtnik"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="-"
+                    android:background="@drawable/kotakinput"
                     android:textColor="@color/semiblack"
                     android:textSize="16dp" />
 
@@ -119,12 +129,14 @@
                     android:textColor="@color/abu"
                     android:textSize="11dp" />
 
-                <TextView
-                    android:id="@+id/txtalamat"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtalamat"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="-"
+                    android:background="@drawable/kotakinput"
                     android:textColor="@color/semiblack"
                     android:textSize="16dp" />
 
@@ -146,7 +158,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Foto KTP"
+                            android:text="Ubah Foto KTP"
                             android:textColor="@color/abu"
                             android:textSize="11dp" />
 
@@ -171,7 +183,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Foto KK"
+                            android:text="Ubah Foto KK"
                             android:textColor="@color/abu"
                             android:textSize="11dp" />
 
@@ -184,34 +196,26 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
 
+
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Ubah Foto Akta"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/abu"
+                    android:textSize="11dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="Foto AKTA"
-                        android:textColor="@color/abu"
-                        android:textSize="11dp" />
-
-                    <ImageView
-                        android:background="@color/abuputih"
-                        android:layout_width="wrap_content"
-                        android:minWidth="150dp"
-                        android:minHeight="75dp"
-                        android:id="@+id/imgakta"
-                        android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-
+                <ImageView
+                    android:background="@color/abuputih"
+                    android:layout_width="170dp"
+                    android:minHeight="75dp"
+                    android:layout_weight="1"
+                    android:id="@+id/imgakta"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content" />
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
                     android:layout_marginTop="33dp"
@@ -224,12 +228,13 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
-                    android:id="@+id/btnlogout"
+                    android:id="@+id/btnbatal"
                     app:cornerRadius="10dp"
                     android:backgroundTint="@color/merah"
-                    android:text="Log Out"
+                    android:text="Batal"
                     android:textAllCaps="false"
                     android:layout_height="wrap_content" />
+
 
             </LinearLayout>
 

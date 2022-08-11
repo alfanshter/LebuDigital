@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../Users/mukhammadalfan/Library/Android/sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.2578125" />
         <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.118" />
         <entry key="..\:/Users/alfan/AndroidStudioProjects/LebuDigital/app/src/main/res/drawable/ic_transaksi.xml" value="0.118" />
@@ -36,12 +37,14 @@
         <entry key="app/src/main/res/layout/activity_kegiatan_desa.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_kegiatan_desa_detail.xml" value="0.1781659388646288" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21041666666666667" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_pelatihan.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_profil_desa.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_tambah_chat.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_tvcc.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/layout/activity_tvcc_detail.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/activity_update_profil.xml" value="0.2598684210526316" />
         <entry key="app/src/main/res/layout/chat_from_row.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/chat_to_row.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/fragment_beranda.xml" value="0.18888888888888888" />
@@ -62,6 +65,7 @@
         <entry key="app/src/main/res/layout/shimmerhorizontal.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/shimmervertical.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/sliderberita.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/layout/spinner_item.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
       </map>
     </option>

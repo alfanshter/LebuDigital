@@ -17,7 +17,13 @@ data class UsersResponse(
 	val role: Int? = null,
 
 	@field:SerializedName("foto_kk")
-	val fotoKk: Any? = null,
+	val fotoKk: String? = null,
+
+	@field:SerializedName("foto_akta")
+	val foto_akta: String? = null,
+
+	@field:SerializedName("foto")
+	val foto: String? = null,
 
 	@field:SerializedName("telepon")
 	val telepon: String? = null,
@@ -29,7 +35,7 @@ data class UsersResponse(
 	val emailVerifiedAt: Any? = null,
 
 	@field:SerializedName("foto_ktp")
-	val fotoKtp: Any? = null,
+	val fotoKtp: String? = null,
 
 	@field:SerializedName("alamat_lengkap")
 	val alamatLengkap: String? = null,
@@ -38,13 +44,13 @@ data class UsersResponse(
 	val kabupaten: KabupatenUsersModel? = null,
 
 	@field:SerializedName("alamat")
-	val alamat: Any? = null,
+	val alamat: String? = null,
 
 	@field:SerializedName("nik")
-	val nik: Any? = null,
+	val nik: String? = null,
 
 	@field:SerializedName("token_id")
-	val tokenId: Any? = null,
+	val tokenId: String? = null,
 
 	@field:SerializedName("updated_at")
 	val updatedAt: String? = null,

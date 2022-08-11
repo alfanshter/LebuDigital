@@ -14,6 +14,7 @@ import com.lebudigital.lebudigital.databinding.FragmentProfilBinding
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaModel
 import com.lebudigital.lebudigital.model.users.UsersResponse
 import com.lebudigital.lebudigital.session.SessionManager
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import com.lebudigital.lebudigital.ui.beranda.menu.berita.BeritaDesaDetailActivity
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
@@ -33,6 +34,7 @@ class ProfilFragment : Fragment(),AnkoLogger {
     lateinit var binding : FragmentProfilBinding
     var api = ApiClient.instance()
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,13 +43,21 @@ class ProfilFragment : Fragment(),AnkoLogger {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profil, container, false)
         binding.lifecycleOwner
         sessionManager = SessionManager(requireContext().applicationContext)
-
+        sessionProfilManager = SessionProfilManager(requireContext().applicationContext)
         binding.btnlogout.setOnClickListener {
             sessionManager.setiduser(0)
             sessionManager.setLogin(false)
             startActivity<LoginActivity>()
             activity!!.finish()
         }
+
+        binding.txtnama.text = sessionProfilManager.getNama()
+        binding.txtalamat.text = sessionProfilManager.getAlamat()!!.toLowerCase()
+        binding.txtnik.text = sessionProfilManager.getNik()
+        binding.txttelepon.text = sessionProfilManager.getTelepon()
+        binding.txtemail.text = sessionProfilManager.getEmail()
+
+
         return binding.root
     }
 
@@ -65,8 +75,15 @@ class ProfilFragment : Fragment(),AnkoLogger {
                     try {
                         if (response.isSuccessful) {
                             var data = response.body()!!
-                            binding.txtnama.text = data.name
                             val alamat_lengkap = "Desa ${data.desa!!.name} Kec. ${data.kecamatan!!.name} ${data.kabupaten!!.name} Prov. ${data.provinsi!!.name} "
+
+                            sessionProfilManager.setNama(data.name!!)
+                            sessionProfilManager.setNik(data.nik!!)
+                            sessionProfilManager.setAlamat(alamat_lengkap)
+                            sessionProfilManager.setTelepon(data.telepon!!)
+                            sessionProfilManager.setEmail(data.email!!)
+
+                            binding.txtnama.text = data.name
                             binding.txtalamat.text = alamat_lengkap.toLowerCase()
                             binding.txtemail.text = data.email
                             if (data.nik!=null){
@@ -76,9 +93,17 @@ class ProfilFragment : Fragment(),AnkoLogger {
                             }
                             binding.txttelepon.text = data.telepon
 
-                            Picasso.get().load(Constant.STORAGE+data.fotoKk).centerCrop().fit().into(binding.imgfoto)
+                            Picasso.get().load(Constant.STORAGE+data.fotoKk).centerCrop().fit().into(binding.imgkk)
                             Picasso.get().load(Constant.STORAGE+data.fotoKtp).centerCrop().fit().into(binding.imgfotoktp)
+                            Picasso.get().load(Constant.STORAGE+data.foto_akta).centerCrop().fit().into(binding.imgakta)
+                            Picasso.get().load(Constant.STORAGE+data.foto).centerCrop().fit().into(binding.imgfoto)
 
+                            binding.btnupdate.setOnClickListener {
+                                val gson = Gson()
+                                val noteJson = gson.toJson(data)
+                                startActivity<UpdateProfilActivity>("profil" to noteJson)
+
+                            }
                         } else {
                             toast("gagal mendapatkan response")
                         }

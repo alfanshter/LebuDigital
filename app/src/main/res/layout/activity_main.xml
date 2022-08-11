@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:menu="@menu/bottom_nav_menu"
+        app:itemTextColor="@color/merah"
         app:itemIconTint="@color/merah"
         android:layout_alignParentBottom="true"
         app:labelVisibilityMode="labeled"

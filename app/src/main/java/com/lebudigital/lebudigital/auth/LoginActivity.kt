@@ -11,6 +11,7 @@ import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.databinding.ActivityLoginBinding
 import com.lebudigital.lebudigital.model.login.LoginResponse
 import com.lebudigital.lebudigital.session.SessionManager
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
 import kotlinx.android.synthetic.main.activity_login.*
@@ -27,12 +28,14 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
     lateinit var progressDialog: ProgressDialog
     var api = ApiClient.instance()
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.lifecycleOwner = this
         progressDialog = ProgressDialog(this)
         sessionManager = SessionManager(this)
+        sessionProfilManager = SessionProfilManager(this)
         txtsignup.setOnClickListener {
             startActivity<RegisterActivity>()
         }
@@ -71,6 +74,9 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
                                 toast("Login berhasil")
                                 sessionManager.setLogin(true)
                                 sessionManager.setiduser(response.body()!!.data!!.id!!)
+                                info { "dinda ${response.body()!!.data}" }
+                                sessionProfilManager.setNama(response.body()!!.data!!.name!!)
+
                                 sessionManager.setprovince_id(response.body()!!.data!!.provinceId!!)
                                 sessionManager.setregencie_id(response.body()!!.data!!.regencieId!!)
                                 sessionManager.setdistrict_id(response.body()!!.data!!.districtId!!)

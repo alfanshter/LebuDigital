@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.beranda.menu.grubinformasi.profildesa.ProfilDesaActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -76,8 +77,15 @@
                     android:layout_height="173dp"
                     app:cardCornerRadius="7dp">
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/imgnotfound"
+                        android:visibility="gone"
+                        android:background="@drawable/gambartidakada"/>
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/imageSlider"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"

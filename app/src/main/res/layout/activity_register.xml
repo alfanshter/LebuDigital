@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="36dp"
+        android:background="@color/white"
         android:paddingRight="36dp"
         android:paddingTop="36dp"
         tools:context=".auth.RegisterActivity">
@@ -18,6 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <ImageView
@@ -47,6 +49,9 @@
                 android:drawableLeft="@drawable/ic_baseline_phone_24"
                 android:hint="Telepon"
                 android:inputType="number"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
+                android:backgroundTint="@color/black"
                 android:drawablePadding="10dp"
                 android:id="@+id/edttelepon" />
 
@@ -56,7 +61,11 @@
                 android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
                 android:id="@+id/edtemail"
-                android:hint="Username"
+                android:hint="Email"
+                android:textColorHint="@color/semiblack"
+                android:backgroundTint="@color/black"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/semiblack"
                 android:drawablePadding="10dp" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,15 +75,22 @@
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:id="@+id/edtnamalengkap"
                 android:hint="Nama Lengkap"
+                android:backgroundTint="@color/black"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
                 android:drawablePadding="10dp" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:id="@+id/edtpassword"
                 android:hint="Password"
+                android:drawableTint="@color/abu"
+                android:backgroundTint="@color/black"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
                 android:inputType="textPassword"
                 android:drawablePadding="10dp" />
 
@@ -82,9 +98,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:id="@+id/edtulangipassword"
                 android:hint="Ulangi Password"
+                android:backgroundTint="@color/black"
+                android:drawableTint="@color/abu"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
                 android:inputType="textPassword"
                 android:drawablePadding="10dp" />
 
@@ -164,9 +184,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_location_on_24"
                 android:id="@+id/edtalamatlengkap"
                 android:hint="Alamat Lengkap"
+                android:drawableTint="@color/abu"
+                android:backgroundTint="@color/black"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
                 android:drawablePadding="10dp" />
 
             <TextView
@@ -175,6 +199,9 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_medium"
                 android:textSize="12dp"
+                android:backgroundTint="@color/black"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
                 android:id="@+id/txtketerangan" />
 
             <com.google.android.material.button.MaterialButton

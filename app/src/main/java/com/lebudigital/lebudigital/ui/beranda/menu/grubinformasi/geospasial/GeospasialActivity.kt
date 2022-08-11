@@ -73,31 +73,37 @@ class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
                 response: Response<GeoSpasialResponse>
             ) {
                 if (response.isSuccessful){
-                    // Add a marker in lokasiku and move the camera
-                    val sydney = LatLng(response.body()!!.desa!!.latitude!!, response.body()!!.desa!!.longitude!!)
-                    mMap.addMarker(
-                        MarkerOptions().position(sydney)
-                            .title(response.body()!!.desa!!.desa!!.name) // below line is use to add custom marker on our map.
-                            .icon(BitmapFromVector(applicationContext, com.lebudigital.lebudigital.R.drawable.imgmarker))
-                    )
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18f))
 
-                    if (latitudePosisi!=null ){
-                        val lokasiku = LatLng(
-                            latitudePosisi!!.toDouble(),
-                            longitudePosisi!!.toDouble()
+                    if (response.body()!!.desa!=null){
+                        // Add a marker in lokasiku and move the camera
+                        val sydney = LatLng(response.body()!!.desa!!.latitude!!, response.body()!!.desa!!.longitude!!)
+                        mMap.addMarker(
+                            MarkerOptions().position(sydney)
+                                .title(response.body()!!.desa!!.desa!!.name) // below line is use to add custom marker on our map.
+                                .icon(BitmapFromVector(applicationContext, com.lebudigital.lebudigital.R.drawable.imgmarker))
                         )
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18f))
 
-                        binding.txtlokasisekarang.text = Cepat.tampilkan_alamat(
-                            latitudePosisi!!.toDouble(),
-                            longitudePosisi!!.toDouble(),
-                            this@GeospasialActivity
-                        )
+                        binding.txtlokasisekarang.text = "${response.body()!!.desa!!.desa!!.name!!.toLowerCase()}"
+                        if (latitudePosisi!=null ){
+                            googleMap.isMyLocationEnabled = true
+                            val lokasiku = LatLng(
+                                latitudePosisi!!.toDouble(),
+                                longitudePosisi!!.toDouble()
+                            )
+
+                            binding.txtlokasisekarang.text = Cepat.tampilkan_alamat(
+                                latitudePosisi!!.toDouble(),
+                                longitudePosisi!!.toDouble(),
+                                this@GeospasialActivity
+                            )
 
 
 
+                        }
                     }
+
                 }else{
                     info { "dinda kesalahan response" }
                 }
@@ -110,7 +116,7 @@ class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
         })
 
 
-        googleMap.isMyLocationEnabled = true
+
     }
 
     private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

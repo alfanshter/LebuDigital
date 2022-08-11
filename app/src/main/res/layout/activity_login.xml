@@ -11,12 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="36dp"
+        android:background="@color/white"
         android:paddingRight="36dp"
         android:paddingTop="36dp"
         tools:context=".auth.LoginActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -44,8 +46,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
-                android:hint="Username"
+                android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
+                android:backgroundTint="@color/black"
                 android:drawablePadding="10dp"
                 android:id="@+id/edtusernmae" />
 
@@ -53,8 +59,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_baseline_phone_24"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:hint="Password"
+                android:textColorHint="@color/semiblack"
+                android:textColor="@color/semiblack"
+                android:backgroundTint="@color/black"
+                android:drawableTint="@color/abu"
                 android:drawablePadding="10dp"
                 android:id="@+id/edtpassword" />
 
@@ -64,6 +74,7 @@
                 android:textAllCaps="false"
                 app:cornerRadius="10dp"
                 android:id="@+id/btnlogin"
+                android:textColor="@color/white"
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/merah"

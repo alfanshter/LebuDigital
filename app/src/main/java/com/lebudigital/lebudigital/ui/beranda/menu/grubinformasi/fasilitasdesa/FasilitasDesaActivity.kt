@@ -3,6 +3,7 @@ package com.lebudigital.lebudigital.ui.beranda.menu.grubinformasi.fasilitasdesa
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -41,7 +42,9 @@ class FasilitasDesaActivity : AppCompatActivity(),AnkoLogger {
             finish()
         }
         progressDialog = ProgressDialog(this)
+
         sessionManager = SessionManager(this)
+        binding.shimmermakanan.startShimmer()
     }
 
     override fun onStart() {
@@ -67,22 +70,19 @@ class FasilitasDesaActivity : AppCompatActivity(),AnkoLogger {
                 ) {
                     try {
                         if (response.isSuccessful) {
+
                             val notesList = mutableListOf<FasilitasModel>()
                             val data = response.body()
-                            if (data!!.fasilitas!!.isEmpty()) {
 
-                            } else {
+                            binding.txtketerangan.text = data!!.profil!!.deskripsi
+                            binding.txtnamadesa.text = data.profil!!.desa!!.name
 
-                                binding.txtketerangan.text = data.profil!!.deskripsi
-                                for (hasil in data.fasilitas!!) {
-
-                                    notesList.add(hasil)
-                                    mAdapter = FasilitasAdapter(notesList)
-                                    binding.rvfasilitas.adapter = mAdapter
-
-                                    mAdapter.notifyDataSetChanged()
-                                }
-
+                            if (data.gambardesa!!.isEmpty()){
+                                binding.imgnotfound.visibility = View.VISIBLE
+                                binding.imageSlider.visibility = View.GONE
+                            }else{
+                                binding.imgnotfound.visibility = View.GONE
+                                binding.imageSlider.visibility = View.VISIBLE
                                 val imageList: ArrayList<String> = ArrayList()
 
                                 for (gambardesa in data.gambardesa!!){
@@ -92,6 +92,26 @@ class FasilitasDesaActivity : AppCompatActivity(),AnkoLogger {
 
                                 }
                                 setImageInSlider(imageList, binding.imageSlider, gambarmodel)
+
+                            }
+                            if (data.fasilitas!!.isEmpty()) {
+                                binding.rvfasilitas.visibility = View.GONE
+                                binding.imgkosong.visibility = View.VISIBLE
+                                binding.shimmermakanan.visibility = View.GONE
+                            } else {
+                                binding.rvfasilitas.visibility = View.VISIBLE
+                                binding.shimmermakanan.visibility = View.GONE
+                                binding.imgkosong.visibility = View.GONE
+                                binding.shimmermakanan.stopShimmer()
+
+                                for (hasil in data.fasilitas!!) {
+
+                                    notesList.add(hasil)
+                                    mAdapter = FasilitasAdapter(notesList)
+                                    binding.rvfasilitas.adapter = mAdapter
+
+                                    mAdapter.notifyDataSetChanged()
+                                }
 
                                 mAdapter.setDialog(object : FasilitasAdapter.Dialog {
 

@@ -2,6 +2,7 @@ package com.lebudigital.lebudigital.webservice
 
 import com.lebudigital.lebudigital.model.auth.PostRegister
 import com.lebudigital.lebudigital.model.auth.PostResponse
+import com.lebudigital.lebudigital.model.auth.UpdataProfilResponse
 import com.lebudigital.lebudigital.model.auth.UsersModel
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaResponse
 import com.lebudigital.lebudigital.model.budayalokal.BudayaLokalResponse
@@ -68,6 +69,39 @@ interface ApiService {
     fun profil(
         @Query("id") id: Int
     ): Call<UsersModel>
+
+    //Register
+
+    @Multipart
+    @POST("update_profil")
+    fun update_profil(
+        @Header("X-Authorization") token: String,
+        @Part("id") id: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("telepon") telepon: RequestBody,
+        @Part("nik") nik: RequestBody,
+        @Part("alamat_lengkap") alamat_lengkap: RequestBody
+    ): Call<UpdataProfilResponse>
+
+    //FOTO
+    @Multipart
+    @POST("update_profil")
+    fun update_profil_foto_kk_akta_ktp(
+        @Header("X-Authorization") token: String,
+        @Part("id") id: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("telepon") telepon: RequestBody,
+        @Part("nik") nik: RequestBody,
+        @Part("alamat_lengkap") alamat_lengkap: RequestBody,
+        @Part foto: MultipartBody.Part?,
+        @Part foto_kk: MultipartBody.Part?,
+        @Part foto_akta: MultipartBody.Part?,
+        @Part foto_ktp: MultipartBody.Part?
+    ): Call<UpdataProfilResponse>
+
+
     //=====================END Profil=====================
 
     //=======================TVCC=====================
