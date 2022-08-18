@@ -101,74 +101,53 @@
 
         </LinearLayout>
 
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/desatidakada"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            tools:context=".ui.beranda.menu.grubinformasi.geospasial.GeospasialActivity" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imgtidakaktif"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeStepGranularity="2dp"
+                android:autoSizeMaxTextSize="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="10dp"
+                android:text="DESA ANDA BELUM DIAKTIFKAN/TERDAFTAR"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/desaada"
+            android:visibility="gone"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.beranda.menu.grubinformasi.geospasial.GeospasialActivity" />
 
-        <!--        <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/linearLayout">-->
-
-<!--            <fragment-->
-<!--                android:id="@+id/map"-->
-<!--                android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/linearLayout"-->
-<!--                tools:context=".ui.beranda.menu.grubinformasi.geospasial.GeospasialActivity" />-->
-
-
-<!--            <com.google.android.material.card.MaterialCardView-->
-<!--                android:id="@+id/layoutBottomSheet"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@color/white"-->
-<!--                android:orientation="vertical"-->
-<!--                app:cardCornerRadius="14dp"-->
-<!--                app:behavior_peekHeight="174dp"-->
-<!--                app:layout_behavior="@string/bottom_sheet_behavior">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical">-->
-<!--                    <View-->
-<!--                        android:layout_width="46dp"-->
-<!--                        android:layout_height="1dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:background="@color/abu" />-->
-<!--                    &lt;!&ndash;            nama gambar status&ndash;&gt;-->
-
-<!--                    <androidx.recyclerview.widget.RecyclerView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:id="@+id/rvlokasi"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_margin="24dp"/>-->
-<!--                </LinearLayout>-->
-
-
-
-<!--            </com.google.android.material.card.MaterialCardView>-->
-
-
-<!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

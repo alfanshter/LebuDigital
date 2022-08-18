@@ -144,7 +144,6 @@ class BerandaFragment : Fragment(),AnkoLogger {
 
     fun get_beritadesa_popular() {
 
-        info { "dinda iduser ${sessionManager.getiduser()}" }
         var slidermodel = mutableListOf<BeritaDesaModel>()
         binding.shimmermakanan.startShimmer()
         api.beritadesa_popular(Constant.API_KEY_BACKEND, sessionManager.getiduser()!!)
@@ -158,8 +157,15 @@ class BerandaFragment : Fragment(),AnkoLogger {
                             val notesList = mutableListOf<BeritaDesaModel>()
                             val data = response.body()
                             if (data!!.data!!.isEmpty()) {
+                                binding.imageSlider.visibility = View.GONE
+                                binding.shimmermakanan.visibility = View.GONE
+                                binding.shimmermakanan.stopShimmer()
+                                binding.imgkosong.visibility = View.VISIBLE
                             } else {
-
+                                binding.imageSlider.visibility = View.VISIBLE
+                                binding.shimmermakanan.visibility = View.GONE
+                                binding.shimmermakanan.stopShimmer()
+                                binding.imgkosong.visibility = View.GONE
                                 val imageList: ArrayList<String> = ArrayList()
 
                                 for (popular in data.data!!){

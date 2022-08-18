@@ -57,10 +57,40 @@
 
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/desatidakada"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imgtidakaktif"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeStepGranularity="2dp"
+                android:autoSizeMaxTextSize="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="10dp"
+                android:text="DESA ANDA BELUM DIAKTIFKAN/TERDAFTAR"/>
+        </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:id="@+id/desaada"
+            android:visibility="gone"
             android:layout_margin="19dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

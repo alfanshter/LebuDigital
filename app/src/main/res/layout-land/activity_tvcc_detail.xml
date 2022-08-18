@@ -132,19 +132,6 @@
                     android:text="Deskripsi"
                     android:layout_marginTop="20dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textFontWeight="400"
-                    android:gravity="center"
-                    android:id="@+id/txtlink"
-                    android:textColor="@color/abu"
-                    android:text="Link"
-                    android:layout_marginTop="20dp" />
-
-
             </LinearLayout>
 
         </ScrollView>

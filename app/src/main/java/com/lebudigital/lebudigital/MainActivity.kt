@@ -2,6 +2,7 @@ package com.lebudigital.lebudigital
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,6 +10,7 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity(),AnkoLogger {
     companion object {
         var latitudePosisi: String? = null
         var longitudePosisi: String? = null
+        lateinit var activity : Activity
         const val REQUEST_CHECK_SETTINGS = 101
         private const val UPDATE_INTERVAL_IN_MILLISECONDS: Long = 10000
     }
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity(),AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        activity = this
         progressDialog = ProgressDialog(this)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_viewhome)

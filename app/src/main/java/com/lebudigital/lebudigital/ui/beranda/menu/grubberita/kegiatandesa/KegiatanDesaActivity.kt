@@ -7,12 +7,15 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.adapter.kegiatandesa.KegiatanDesaAdapter
+import com.lebudigital.lebudigital.auth.LoginActivity
 import com.lebudigital.lebudigital.databinding.ActivityKegiatanDesaBinding
 import com.lebudigital.lebudigital.model.kegiatandesa.KegiatanDesaModel
 import com.lebudigital.lebudigital.model.profildesa.KegiatanDesaResponse
 import com.lebudigital.lebudigital.session.SessionManager
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
 import org.jetbrains.anko.AnkoLogger
@@ -30,13 +33,14 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
     private lateinit var mAdapter: KegiatanDesaAdapter
     var menu: String? = null
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_kegiatan_desa)
         binding.lifecycleOwner = this
         progressDialog = ProgressDialog(this)
         sessionManager = SessionManager(this)
-
+        sessionProfilManager = SessionProfilManager(this)
 
         binding.rvkegiatandesa.layoutManager = LinearLayoutManager(this, )
         binding.rvkegiatandesa.setHasFixedSize(true)
@@ -59,6 +63,8 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
 
 
     fun get_kegiatandesa() {
+        binding.desaada.visibility = View.VISIBLE
+        binding.desatidakada.visibility = View.GONE
         binding.shimmermakanan.startShimmer()
         api.kegiatandesa(Constant.API_KEY_BACKEND,sessionManager.getiduser()!!)
             .enqueue(object : Callback<KegiatanDesaResponse> {
@@ -70,42 +76,66 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
                         if (response.isSuccessful) {
                             val notesList = mutableListOf<KegiatanDesaModel>()
                             val data = response.body()
-                            if (data!!.kegiatandesa!!.isEmpty()) {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.VISIBLE
-                                binding.rvkegiatandesa.visibility = View.GONE
-                            } else {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.GONE
-                                binding.rvkegiatandesa.visibility = View.VISIBLE
 
-                                for (hasil in data.kegiatandesa!!) {
-                                    notesList.add(hasil)
-                                    mAdapter = KegiatanDesaAdapter(notesList)
-                                    binding.rvkegiatandesa.adapter = mAdapter
+                            if (data!!.status == 0){
+                                binding.desaada.visibility = View.GONE
+                                binding.desatidakada.visibility = View.VISIBLE
+                            }
 
-                                    mAdapter.setDialog(object : KegiatanDesaAdapter.Dialog {
+                            if (data.status == 1){
+                                if (data.kegiatandesa!!.isEmpty()) {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.VISIBLE
+                                    binding.rvkegiatandesa.visibility = View.GONE
+                                }
+                                else {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.GONE
+                                    binding.rvkegiatandesa.visibility = View.VISIBLE
 
+                                    for (hasil in data.kegiatandesa!!) {
+                                        notesList.add(hasil)
+                                        mAdapter = KegiatanDesaAdapter(notesList)
+                                        binding.rvkegiatandesa.adapter = mAdapter
 
-                                        override fun onClick(
-                                            position: Int,
-                                            KegiatanDesaModel: KegiatanDesaModel
-                                        ) {
-                                            val gson = Gson()
-                                            val noteJson = gson.toJson(KegiatanDesaModel)
-                                            startActivity<KegiatanDesaDetailActivity>(
-                                                "kegiatandesa" to noteJson
-                                            )
-                                        }
+                                        mAdapter.setDialog(object : KegiatanDesaAdapter.Dialog {
 
 
-                                    })
-                                    mAdapter.notifyDataSetChanged()
+                                            override fun onClick(
+                                                position: Int,
+                                                KegiatanDesaModel: KegiatanDesaModel
+                                            ) {
+                                                val gson = Gson()
+                                                val noteJson = gson.toJson(KegiatanDesaModel)
+                                                startActivity<KegiatanDesaDetailActivity>(
+                                                    "kegiatandesa" to noteJson
+                                                )
+                                            }
+
+
+                                        })
+                                        mAdapter.notifyDataSetChanged()
+                                    }
+
                                 }
 
                             }
+                            if (data.status == 2){
+                                sessionManager.setLogin(false)
+                                sessionManager.setLoginadmin(false)
+                                sessionProfilManager.setAlamat("")
+                                sessionProfilManager.setNik("")
+                                sessionProfilManager.setTelepon("")
+                                sessionProfilManager.setNama("")
+                                sessionProfilManager.setEmail("")
+                                toast("Akun anda telah dihapus")
+                                startActivity<LoginActivity>()
+                                finish()
+                                MainActivity.activity.finish()
+                            }
+
 
                         } else {
                             toast("gagal mendapatkan response")

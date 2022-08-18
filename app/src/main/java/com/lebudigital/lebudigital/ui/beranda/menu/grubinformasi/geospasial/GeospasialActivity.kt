@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.MainActivity.Companion.latitudePosisi
 import com.lebudigital.lebudigital.MainActivity.Companion.longitudePosisi
 import com.lebudigital.lebudigital.adapter.beritadesa.BeritaDesaAdapter
@@ -31,7 +33,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.lebudigital.lebudigital.R
+import com.lebudigital.lebudigital.auth.LoginActivity
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import org.jetbrains.anko.info
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
 
@@ -42,6 +48,7 @@ class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
     private lateinit var mAdapter: BeritaDesaAdapter
     private lateinit var popularAdapter: BeritaDesaAdapter
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     private lateinit var mMap: GoogleMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +56,7 @@ class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
         binding.lifecycleOwner = this
         sessionManager = SessionManager(this)
         progressDialog = ProgressDialog(this)
-
+        sessionProfilManager = SessionProfilManager(this)
         binding.btnback.setOnClickListener {
             finish()
         }
@@ -73,35 +80,56 @@ class GeospasialActivity : AppCompatActivity(), OnMapReadyCallback ,AnkoLogger{
                 response: Response<GeoSpasialResponse>
             ) {
                 if (response.isSuccessful){
-
-                    if (response.body()!!.desa!=null){
-                        // Add a marker in lokasiku and move the camera
-                        val sydney = LatLng(response.body()!!.desa!!.latitude!!, response.body()!!.desa!!.longitude!!)
-                        mMap.addMarker(
-                            MarkerOptions().position(sydney)
-                                .title(response.body()!!.desa!!.desa!!.name) // below line is use to add custom marker on our map.
-                                .icon(BitmapFromVector(applicationContext, com.lebudigital.lebudigital.R.drawable.imgmarker))
-                        )
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18f))
-
-                        binding.txtlokasisekarang.text = "${response.body()!!.desa!!.desa!!.name!!.toLowerCase()}"
-                        if (latitudePosisi!=null ){
-                            googleMap.isMyLocationEnabled = true
-                            val lokasiku = LatLng(
-                                latitudePosisi!!.toDouble(),
-                                longitudePosisi!!.toDouble()
+                    if (response.body()!!.status == 0){
+                        binding.desaada.visibility = View.GONE
+                        binding.desatidakada.visibility = View.VISIBLE
+                    }
+                    if (response.body()!!.status == 1){
+                        binding.desaada.visibility = View.VISIBLE
+                        binding.desatidakada.visibility = View.GONE
+                        if (response.body()!!.desa!=null){
+                            // Add a marker in lokasiku and move the camera
+                            val sydney = LatLng(response.body()!!.desa!!.latitude!!, response.body()!!.desa!!.longitude!!)
+                            mMap.addMarker(
+                                MarkerOptions().position(sydney)
+                                    .title(response.body()!!.desa!!.desa!!.name) // below line is use to add custom marker on our map.
+                                    .icon(BitmapFromVector(applicationContext, com.lebudigital.lebudigital.R.drawable.imgmarker))
                             )
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18f))
 
-                            binding.txtlokasisekarang.text = Cepat.tampilkan_alamat(
-                                latitudePosisi!!.toDouble(),
-                                longitudePosisi!!.toDouble(),
-                                this@GeospasialActivity
-                            )
+                            binding.txtlokasisekarang.text = "${response.body()!!.desa!!.desa!!.name!!.toLowerCase()}"
+                            if (latitudePosisi!=null ){
+                                googleMap.isMyLocationEnabled = true
+                                val lokasiku = LatLng(
+                                    latitudePosisi!!.toDouble(),
+                                    longitudePosisi!!.toDouble()
+                                )
+
+                                binding.txtlokasisekarang.text = Cepat.tampilkan_alamat(
+                                    latitudePosisi!!.toDouble(),
+                                    longitudePosisi!!.toDouble(),
+                                    this@GeospasialActivity
+                                )
 
 
 
+                            }
                         }
+
+                    }
+                    if (response.body()!!.status == 2){
+                        sessionManager.setLogin(false)
+                        sessionManager.setLoginadmin(false)
+                        sessionProfilManager.setAlamat("")
+                        sessionProfilManager.setNik("")
+                        sessionProfilManager.setTelepon("")
+                        sessionProfilManager.setNama("")
+                        sessionProfilManager.setEmail("")
+                        toast("Akun anda telah dihapus")
+                        startActivity<LoginActivity>()
+                        finish()
+                        MainActivity.activity.finish()
                     }
 
                 }else{

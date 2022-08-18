@@ -46,7 +46,6 @@ class TvccDetailActivity : AppCompatActivity(),AnkoLogger {
         binding.txtmenu.text = menu
         binding.txtjudul!!.text = produkmodel!!.judul.toString()
         binding.txtnarasi!!.text = produkmodel!!.narasi.toString()
-        binding.txtlink!!.text = produkmodel!!.link.toString()
 
         val sdf = SimpleDateFormat("dd MMM yyyy")
         val currentDate = sdf.format(produkmodel!!.createdAt)

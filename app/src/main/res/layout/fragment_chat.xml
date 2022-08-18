@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.ChatFragment">
 
 
@@ -54,6 +55,7 @@
            <androidx.appcompat.widget.SearchView
                android:layout_width="match_parent"
                android:layout_marginRight="20dp"
+               android:theme="@style/AppSearchView"
                android:background="@drawable/kotakinput"
                android:layout_height="wrap_content"/>
 

@@ -73,6 +73,8 @@ class DesaTerdekatActivity : AppCompatActivity(), OnMapReadyCallback, AnkoLogger
         sessionManager = SessionManager(this)
         progressDialog = ProgressDialog(this)
 
+
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -356,10 +358,6 @@ class DesaTerdekatActivity : AppCompatActivity(), OnMapReadyCallback, AnkoLogger
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-
-
-        mMap.isMyLocationEnabled = true
 
 
     }

@@ -7,13 +7,16 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.adapter.budayalokal.BudayaLokalAdapter
+import com.lebudigital.lebudigital.auth.LoginActivity
 import com.lebudigital.lebudigital.databinding.ActivityBudayaLokalBinding
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaResponse
 import com.lebudigital.lebudigital.model.budayalokal.BudayaLokalModel
 import com.lebudigital.lebudigital.model.budayalokal.BudayaLokalResponse
 import com.lebudigital.lebudigital.session.SessionManager
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import com.lebudigital.lebudigital.ui.beranda.menu.berita.BeritaDesaDetailActivity
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
@@ -33,12 +36,13 @@ class BudayaLokalActivity : AppCompatActivity(), AnkoLogger {
     var api = ApiClient.instance()
     private lateinit var mAdapter: BudayaLokalAdapter
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_budaya_lokal)
         binding.lifecycleOwner = this
         sessionManager = SessionManager(this)
-
+        sessionProfilManager = SessionProfilManager(this)
         binding.rvbudayaloka.layoutManager = LinearLayoutManager(this)
         binding.rvbudayaloka.setHasFixedSize(true)
         (binding.rvbudayaloka.layoutManager as LinearLayoutManager).orientation =
@@ -69,47 +73,69 @@ class BudayaLokalActivity : AppCompatActivity(), AnkoLogger {
                         if (response.isSuccessful) {
                             val notesList = mutableListOf<BudayaLokalModel>()
                             val data = response.body()
-                            if (data!!.data!!.isEmpty()) {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.VISIBLE
-                                binding.rvbudayaloka.visibility = View.GONE
-                            } else {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.GONE
-                                binding.rvbudayaloka.visibility = View.VISIBLE
-
-
-                                for (hasil in data.data!!) {
-                                    notesList.add(hasil)
-                                    mAdapter = BudayaLokalAdapter(notesList)
-                                    binding.rvbudayaloka.adapter = mAdapter
-
-                                    mAdapter.setDialog(object : BudayaLokalAdapter.Dialog {
-
-
-                                        override fun onClick(
-                                            position: Int,
-                                            BudayaLokalModel: BudayaLokalModel
-                                        ) {
-                                            val gson = Gson()
-                                            val noteJson = gson.toJson(BudayaLokalModel)
-                                            startActivity<BeritaDesaDetailActivity>(
-                                                "budayalokal" to noteJson
-                                            )
-
-                                        }
-
-
-                                    })
-
-
-                                    mAdapter.notifyDataSetChanged()
-                                }
-
-
+                            if (data!!.status == 0){
+                                binding.desaada.visibility = View.GONE
+                                binding.desatidakada.visibility = View.VISIBLE
                             }
+
+                            else if (data.status == 1){
+                                if (data.data!!.isEmpty()) {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.VISIBLE
+                                    binding.rvbudayaloka.visibility = View.GONE
+                                }
+                                else {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.GONE
+                                    binding.rvbudayaloka.visibility = View.VISIBLE
+
+
+                                    for (hasil in data.data!!) {
+                                        notesList.add(hasil)
+                                        mAdapter = BudayaLokalAdapter(notesList)
+                                        binding.rvbudayaloka.adapter = mAdapter
+
+                                        mAdapter.setDialog(object : BudayaLokalAdapter.Dialog {
+
+
+                                            override fun onClick(
+                                                position: Int,
+                                                BudayaLokalModel: BudayaLokalModel
+                                            ) {
+                                                val gson = Gson()
+                                                val noteJson = gson.toJson(BudayaLokalModel)
+                                                startActivity<BeritaDesaDetailActivity>(
+                                                    "budayalokal" to noteJson
+                                                )
+
+                                            }
+
+
+                                        })
+
+
+                                        mAdapter.notifyDataSetChanged()
+                                    }
+
+
+                                }
+                            }
+                            else if (data.status == 2){
+                                sessionManager.setLogin(false)
+                                sessionManager.setLoginadmin(false)
+                                sessionProfilManager.setAlamat("")
+                                sessionProfilManager.setNik("")
+                                sessionProfilManager.setTelepon("")
+                                sessionProfilManager.setNama("")
+                                sessionProfilManager.setEmail("")
+                                toast("Akun anda telah dihapus")
+                                startActivity<LoginActivity>()
+                                finish()
+                                MainActivity.activity.finish()
+                            }
+
 
                         } else {
                             toast("gagal mendapatkan response")

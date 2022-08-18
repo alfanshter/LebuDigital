@@ -7,14 +7,17 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.adapter.pelatihan.PelatihanDesaAdapter
 import com.lebudigital.lebudigital.adapter.pelatihan.PelatihanSlider
+import com.lebudigital.lebudigital.auth.LoginActivity
 import com.lebudigital.lebudigital.databinding.ActivityBeritaDesaBinding
 import com.lebudigital.lebudigital.databinding.ActivityPelatihanBinding
 import com.lebudigital.lebudigital.model.pelatihan.PelatihanMinggu
 import com.lebudigital.lebudigital.model.pelatihan.PelatihanResponse
 import com.lebudigital.lebudigital.session.SessionManager
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import com.lebudigital.lebudigital.ui.beranda.menu.berita.BeritaDesaDetailActivity
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
@@ -34,11 +37,13 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
     private lateinit var mAdapter: PelatihanDesaAdapter
     private lateinit var popularAdapter: PelatihanDesaAdapter
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pelatihan)
         binding.lifecycleOwner = this
         sessionManager = SessionManager(this)
+        sessionProfilManager = SessionProfilManager(this)
 
 
         binding.btnback.setOnClickListener {
@@ -54,6 +59,9 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
     }
 
     fun get_beritadesa() {
+        binding.desaada.visibility = View.VISIBLE
+        binding.desatidakada.visibility = View.GONE
+
         binding.rvpelatihan.layoutManager = LinearLayoutManager(this)
         binding.rvpelatihan.setHasFixedSize(true)
         (binding.rvpelatihan.layoutManager as LinearLayoutManager).orientation =
@@ -72,54 +80,86 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
                             val notesList = mutableListOf<PelatihanMinggu>()
                             val data = response.body()
 
-                            val imageList: ArrayList<String> = ArrayList()
 
-                            for (popular in data!!.pelatihanAkanDatang!!){
-                                slidermodel.add(popular)
-                                //slider
-                                imageList.add(Constant.STORAGE + popular.foto!!)
-
+                            if (data!!.status == 0){
+                                binding.desaada.visibility = View.GONE
+                                binding.desatidakada.visibility = View.VISIBLE
                             }
-                            setImageInSlider(imageList, binding.imageSlider, slidermodel)
+
+                            if (data.status == 1){
+                                val imageList: ArrayList<String> = ArrayList()
+
+                                for (popular in data.pelatihanAkanDatang!!){
+                                    slidermodel.add(popular)
+                                    //slider
+                                    imageList.add(Constant.STORAGE + popular.foto!!)
+
+                                }
+                                setImageInSlider(imageList, binding.imageSlider, slidermodel)
 
 
-                            if (data.pelatihanMingguIni!!.isEmpty()) {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.VISIBLE
-                                binding.rvpelatihan.visibility = View.GONE
-                            } else {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.GONE
-                                binding.rvpelatihan.visibility = View.VISIBLE
+                                if (data.pelatihanAkanDatang!!.isEmpty()){
+                                    binding.gambarkosong.visibility = View.VISIBLE
+                                    binding.imageSlider.visibility = View.GONE
+                                }else{
+                                    binding.gambarkosong.visibility = View.GONE
+                                    binding.imageSlider.visibility = View.VISIBLE
+                                }
+                                if (data.pelatihanMingguIni!!.isEmpty()) {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.VISIBLE
+                                    binding.rvpelatihan.visibility = View.GONE
+                                }
+                                else {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.GONE
+                                    binding.rvpelatihan.visibility = View.VISIBLE
 
-                                for (hasil in data.pelatihanMingguIni!!) {
-                                    notesList.add(hasil)
-                                    mAdapter = PelatihanDesaAdapter(notesList)
-                                    binding.rvpelatihan.adapter = mAdapter
+                                    for (hasil in data.pelatihanMingguIni!!) {
+                                        notesList.add(hasil)
+                                        mAdapter = PelatihanDesaAdapter(notesList)
+                                        binding.rvpelatihan.adapter = mAdapter
 
-                                    mAdapter.setDialog(object : PelatihanDesaAdapter.Dialog {
-                                        override fun onClick(
-                                            position: Int,
-                                            PelatihanMinggu: PelatihanMinggu
-                                        ) {
-                                            val gson = Gson()
-                                            val noteJson = gson.toJson(PelatihanMinggu)
-                                            startActivity<DetailPelatihanActivity>(
-                                                "pelatihan" to noteJson
-                                            )
+                                        mAdapter.setDialog(object : PelatihanDesaAdapter.Dialog {
+                                            override fun onClick(
+                                                position: Int,
+                                                PelatihanMinggu: PelatihanMinggu
+                                            ) {
+                                                val gson = Gson()
+                                                val noteJson = gson.toJson(PelatihanMinggu)
+                                                startActivity<DetailPelatihanActivity>(
+                                                    "pelatihan" to noteJson
+                                                )
 
-                                        }
+                                            }
 
 
-                                    })
-                                    mAdapter.notifyDataSetChanged()
+                                        })
+                                        mAdapter.notifyDataSetChanged()
+                                    }
+
+
+
                                 }
 
-
-
                             }
+                            if (data.status == 2){
+                                sessionManager.setLogin(false)
+                                sessionManager.setLoginadmin(false)
+                                sessionProfilManager.setAlamat("")
+                                sessionProfilManager.setNik("")
+                                sessionProfilManager.setTelepon("")
+                                sessionProfilManager.setNama("")
+                                sessionProfilManager.setEmail("")
+                                toast("Akun anda telah dihapus")
+                                startActivity<LoginActivity>()
+                                finish()
+                                MainActivity.activity.finish()
+                            }
+
+
 
                         } else {
                             toast("gagal mendapatkan response")

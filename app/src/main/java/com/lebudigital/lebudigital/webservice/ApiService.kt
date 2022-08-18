@@ -191,7 +191,7 @@ interface ApiService {
     @GET("profil")
     fun users(
         @Query("id") id: Int
-    ): Call<UsersResponse>
+    ): Call<com.lebudigital.lebudigital.model.users.ProfilResponse>
     //=======================END Pelatihan Desa==================
 
     //=======================BERITA DESA==================

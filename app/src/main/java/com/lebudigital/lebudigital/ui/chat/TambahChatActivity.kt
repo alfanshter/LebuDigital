@@ -46,7 +46,6 @@ class TambahChatActivity : AppCompatActivity(), AnkoLogger {
         firebaseDatabase = FirebaseDatabase.getInstance(Constant.firebase_realtime)
         sessionManager = SessionManager(this)
         binding.srccariemail.queryHint = "Cari email pengguna"
-
         binding.rvkontak.layoutManager = LinearLayoutManager(this)
         binding.rvkontak.setHasFixedSize(true)
         (binding.rvkontak.layoutManager as LinearLayoutManager).orientation =

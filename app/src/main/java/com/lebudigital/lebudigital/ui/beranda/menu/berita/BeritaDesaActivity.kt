@@ -7,13 +7,16 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.adapter.beritadesa.BeritaDesaAdapter
 import com.lebudigital.lebudigital.adapter.beritadesa.BeritaDesaPopular
+import com.lebudigital.lebudigital.auth.LoginActivity
 import com.lebudigital.lebudigital.databinding.ActivityBeritaDesaBinding
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaModel
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaResponse
 import com.lebudigital.lebudigital.session.SessionManager
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
 import com.smarteist.autoimageslider.SliderView
@@ -32,12 +35,13 @@ class BeritaDesaActivity : AppCompatActivity(), AnkoLogger {
     private lateinit var mAdapter: BeritaDesaAdapter
     private lateinit var popularAdapter: BeritaDesaAdapter
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_berita_desa)
         binding.lifecycleOwner = this
         sessionManager = SessionManager(this)
-
+        sessionProfilManager = SessionProfilManager(this)
         binding.rvberita.layoutManager = LinearLayoutManager(this)
         binding.rvberita.setHasFixedSize(true)
         (binding.rvberita.layoutManager as LinearLayoutManager).orientation =
@@ -56,6 +60,8 @@ class BeritaDesaActivity : AppCompatActivity(), AnkoLogger {
     }
 
     fun get_beritadesa() {
+        binding.desaada.visibility = View.VISIBLE
+        binding.desatidakada.visibility = View.GONE
         var slidermodel = mutableListOf<BeritaDesaModel>()
         binding.shimmermakanan.startShimmer()
         api.beritadesa(Constant.API_KEY_BACKEND, sessionManager.getiduser()!!)
@@ -68,45 +74,70 @@ class BeritaDesaActivity : AppCompatActivity(), AnkoLogger {
                         if (response.isSuccessful) {
                             val notesList = mutableListOf<BeritaDesaModel>()
                             val data = response.body()
-                            if (data!!.data!!.isEmpty()) {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.VISIBLE
-                                binding.rvberita.visibility = View.GONE
-                            } else {
-                                binding.shimmermakanan.stopShimmer()
-                                binding.shimmermakanan.visibility = View.GONE
-                                binding.txtnodata.visibility = View.GONE
-                                binding.rvberita.visibility = View.VISIBLE
+                            if (data!!.status == 0){
+                                binding.desaada.visibility = View.GONE
+                                binding.desatidakada.visibility = View.VISIBLE
+                            }
+                            else if (data.status == 1){
+                                if (data!!.data!!.isEmpty()) {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.VISIBLE
+                                    binding.imgnotfound.visibility = View.VISIBLE
+                                    binding.rvberita.visibility = View.GONE
+                                    binding.imageSlider.visibility = View.GONE
+                                }
+                                else {
+                                    binding.shimmermakanan.stopShimmer()
+                                    binding.shimmermakanan.visibility = View.GONE
+                                    binding.txtnodata.visibility = View.GONE
+                                    binding.rvberita.visibility = View.VISIBLE
+                                    binding.imgnotfound.visibility = View.GONE
+                                    binding.imageSlider.visibility = View.VISIBLE
+
+                                    for (hasil in data.data!!) {
+                                        notesList.add(hasil)
+                                        mAdapter = BeritaDesaAdapter(notesList)
+                                        binding.rvberita.adapter = mAdapter
+
+                                        mAdapter.setDialog(object : BeritaDesaAdapter.Dialog {
+                                            override fun onClick(
+                                                position: Int,
+                                                BeritaDesaModel: BeritaDesaModel
+                                            ) {
+                                                val gson = Gson()
+                                                val noteJson = gson.toJson(BeritaDesaModel)
+                                                startActivity<BeritaDesaDetailActivity>(
+                                                    "beritadesa" to noteJson
+                                                )
+
+                                            }
 
 
-                                for (hasil in data.data!!) {
-                                    notesList.add(hasil)
-                                    mAdapter = BeritaDesaAdapter(notesList)
-                                    binding.rvberita.adapter = mAdapter
-
-                                    mAdapter.setDialog(object : BeritaDesaAdapter.Dialog {
-                                        override fun onClick(
-                                            position: Int,
-                                            BeritaDesaModel: BeritaDesaModel
-                                        ) {
-                                            val gson = Gson()
-                                            val noteJson = gson.toJson(BeritaDesaModel)
-                                            startActivity<BeritaDesaDetailActivity>(
-                                                "beritadesa" to noteJson
-                                            )
-
-                                        }
+                                        })
 
 
-                                    })
+                                        mAdapter.notifyDataSetChanged()
+                                    }
 
 
-                                    mAdapter.notifyDataSetChanged()
                                 }
 
-
                             }
+                            else if (data.status == 2){
+                                sessionManager.setLogin(false)
+                                sessionManager.setLoginadmin(false)
+                                sessionProfilManager.setAlamat("")
+                                sessionProfilManager.setNik("")
+                                sessionProfilManager.setTelepon("")
+                                sessionProfilManager.setNama("")
+                                sessionProfilManager.setEmail("")
+                                toast("Akun anda telah dihapus")
+                                startActivity<LoginActivity>()
+                                finish()
+                                MainActivity.activity.finish()
+                            }
+
 
                         } else {
                             toast("gagal mendapatkan response")

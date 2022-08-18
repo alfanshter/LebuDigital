@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.chat.TambahChatActivity">
 
 
@@ -63,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginRight="20dp"
                 android:id="@+id/srccariemail"
+                android:theme="@style/AppSearchView"
                 app:queryHint="Cari dengan email"
                 android:background="@drawable/kotakinput"
                 android:layout_height="wrap_content"/>

@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
+import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.adapter.beritadesa.BeritaDesaAdapter
 import com.lebudigital.lebudigital.auth.LoginActivity
 import com.lebudigital.lebudigital.databinding.FragmentProfilBinding
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaModel
+import com.lebudigital.lebudigital.model.users.ProfilResponse
 import com.lebudigital.lebudigital.model.users.UsersResponse
 import com.lebudigital.lebudigital.session.SessionManager
 import com.lebudigital.lebudigital.session.SessionProfilManager
@@ -67,52 +69,66 @@ class ProfilFragment : Fragment(),AnkoLogger {
     }
     fun profil(){
         api.users(sessionManager.getiduser()!!)
-            .enqueue(object : Callback<UsersResponse> {
+            .enqueue(object : Callback<ProfilResponse> {
                 override fun onResponse(
-                    call: Call<UsersResponse>,
-                    response: Response<UsersResponse>
+                    call: Call<ProfilResponse>,
+                    response: Response<ProfilResponse>
                 ) {
-                    try {
+
                         if (response.isSuccessful) {
+
                             var data = response.body()!!
-                            val alamat_lengkap = "Desa ${data.desa!!.name} Kec. ${data.kecamatan!!.name} ${data.kabupaten!!.name} Prov. ${data.provinsi!!.name} "
+                            if (data.status == 1){
+                                val alamat_lengkap = "Desa ${data.profil!!.desa!!.name} Kec. ${data.profil!!.kecamatan!!.name} ${data.profil!!.kabupaten!!.name} Prov. ${data.profil!!.provinsi!!.name} "
 
-                            sessionProfilManager.setNama(data.name!!)
-                            sessionProfilManager.setNik(data.nik!!)
-                            sessionProfilManager.setAlamat(alamat_lengkap)
-                            sessionProfilManager.setTelepon(data.telepon!!)
-                            sessionProfilManager.setEmail(data.email!!)
+                                sessionProfilManager.setNama(data.profil!!.name!!)
+                                sessionProfilManager.setAlamat(alamat_lengkap)
+                                sessionProfilManager.setTelepon(data.profil!!.telepon!!)
+                                sessionProfilManager.setEmail(data.profil!!.email!!)
 
-                            binding.txtnama.text = data.name
-                            binding.txtalamat.text = alamat_lengkap.toLowerCase()
-                            binding.txtemail.text = data.email
-                            if (data.nik!=null){
-                                binding.txtnik.text = data.nik.toString()
-                            }else{
-                                binding.txtnik.text = "Tambahkan NIK anda"
+                                binding.txtnama.text = data.profil!!.name
+                                binding.txtalamat.text = alamat_lengkap.toLowerCase()
+                                binding.txtemail.text = data.profil!!.email
+                                if (data.profil!!.nik!=null){
+                                    sessionProfilManager.setNik(data.profil!!.nik!!)
+                                    binding.txtnik.text = data.profil!!.nik.toString()
+                                }else{
+                                    binding.txtnik.text = "Tambahkan NIK anda"
+                                }
+                                binding.txttelepon.text = data.profil!!.telepon
+
+                                Picasso.get().load(Constant.STORAGE+data.profil!!.fotoKk).centerCrop().fit().into(binding.imgkk)
+                                Picasso.get().load(Constant.STORAGE+data.profil!!.fotoKtp).centerCrop().fit().into(binding.imgfotoktp)
+                                Picasso.get().load(Constant.STORAGE+data.profil!!.foto_akta).centerCrop().fit().into(binding.imgakta)
+                                Picasso.get().load(Constant.STORAGE+data.profil!!.foto).centerCrop().fit().into(binding.imgfoto)
+
+                                binding.btnupdate.setOnClickListener {
+                                    val gson = Gson()
+                                    val noteJson = gson.toJson(data)
+                                    startActivity<UpdateProfilActivity>("profil" to noteJson)
+
+                                }
                             }
-                            binding.txttelepon.text = data.telepon
-
-                            Picasso.get().load(Constant.STORAGE+data.fotoKk).centerCrop().fit().into(binding.imgkk)
-                            Picasso.get().load(Constant.STORAGE+data.fotoKtp).centerCrop().fit().into(binding.imgfotoktp)
-                            Picasso.get().load(Constant.STORAGE+data.foto_akta).centerCrop().fit().into(binding.imgakta)
-                            Picasso.get().load(Constant.STORAGE+data.foto).centerCrop().fit().into(binding.imgfoto)
-
-                            binding.btnupdate.setOnClickListener {
-                                val gson = Gson()
-                                val noteJson = gson.toJson(data)
-                                startActivity<UpdateProfilActivity>("profil" to noteJson)
-
+                            else if (data.status == 2){
+                                sessionManager.setLogin(false)
+                                sessionManager.setLoginadmin(false)
+                                sessionProfilManager.setAlamat("")
+                                sessionProfilManager.setNik("")
+                                sessionProfilManager.setTelepon("")
+                                sessionProfilManager.setNama("")
+                                sessionProfilManager.setEmail("")
+                                toast("Akun anda telah dihapus")
+                                startActivity<LoginActivity>()
+                                activity!!.finish()
+                                MainActivity.activity.finish()
                             }
+
                         } else {
                             toast("gagal mendapatkan response")
                         }
-                    } catch (e: Exception) {
-                        info { "dinda ${e.message}" }
-                    }
                 }
 
-                override fun onFailure(call: Call<UsersResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ProfilResponse>, t: Throwable) {
                     info { "dinda ${t.message}" }
                 }
 

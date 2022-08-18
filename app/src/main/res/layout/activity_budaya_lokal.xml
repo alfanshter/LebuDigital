@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:background="@color/white"
         android:layout_height="match_parent"
         tools:context=".ui.beranda.menu.berita.budaya.BudayaLokalActivity">
 
@@ -62,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
+            android:id="@+id/desaada"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
@@ -107,22 +109,54 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rvbudayaloka"/>
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Tidak ada data"
-                android:id="@+id/txtnodata"
+                android:background="@drawable/imgkosong"
                 android:layout_gravity="center"
                 android:visibility="gone"
+                android:id="@+id/txtnodata"
+                android:layout_marginTop="50dp"
                 android:textColor="@color/black"
                 android:textFontWeight="600"
                 android:textSize="14dp" />
 
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible"
+                android:id="@+id/desatidakada"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/imgtidakaktif"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:autoSizeMinTextSize="12dp"
+                    android:autoSizeStepGranularity="2dp"
+                    android:autoSizeMaxTextSize="16dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_marginTop="10dp"
+                    android:text="DESA ANDA BELUM DIAKTIFKAN/TERDAFTAR"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </layout>
