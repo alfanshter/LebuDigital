@@ -58,6 +58,22 @@
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
+        <SearchView
+            android:id="@+id/src_tvcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:focusableInTouchMode="true"
+            android:background="@drawable/kotakinput"
+            android:queryHint="Cari sesuatu ..."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmermakanan"
             android:layout_width="match_parent"
@@ -70,7 +86,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintTop_toBottomOf="@+id/src_tvcc"
             app:shimmer_repeat_mode="restart"
             app:shimmer_shape="radial">
 
@@ -98,7 +114,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintTop_toBottomOf="@+id/src_tvcc"
             android:layout_height="0dp"
             android:id="@+id/rvtvcc" />
 
@@ -117,7 +133,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/src_tvcc" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.databinding.ActivityChatAdminBinding
 import com.lebudigital.lebudigital.model.ChatMessage
 import com.lebudigital.lebudigital.session.SessionManager
+import com.lebudigital.lebudigital.session.SessionProfilManager
 import com.lebudigital.lebudigital.webservice.Constant
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
@@ -28,11 +29,13 @@ class ChatAdminActivity : AppCompatActivity() {
 
     lateinit var reference: FirebaseDatabase
     lateinit var sessionManager: SessionManager
+    lateinit var sessionProfilManager: SessionProfilManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat_admin)
         binding.lifecycleOwner = this
         sessionManager = SessionManager(this)
+        sessionProfilManager = SessionProfilManager(this)
 
 
         val bundle: Bundle? = intent.extras
@@ -200,7 +203,8 @@ class ChatAdminActivity : AppCompatActivity() {
                 fromId.toString(),
                 toId,
                 System.currentTimeMillis() / 1000,
-                nama_user.toString()
+                sessionProfilManager.getNama().toString(),
+                1
             )
 
         reference.setValue(chatMessage)

@@ -9,7 +9,8 @@ class ChatMessage(
         val fromId: String,
         val toId: String,
         val timestamp: Long,
-        val nama : String
+        val nama : String,
+        val isnotif : Int
 ) {
-    constructor() : this("", "", "", "", -1,"")
+    constructor() : this("", "", "", "", -1,"",0)
 }
