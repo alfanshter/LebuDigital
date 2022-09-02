@@ -3,22 +3,23 @@ package com.lebudigital.lebudigital.ui.beranda.menu.grubberita.pelatihan
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.adapter.pelatihan.PelatihanDesaAdapter
 import com.lebudigital.lebudigital.adapter.pelatihan.PelatihanSlider
 import com.lebudigital.lebudigital.auth.LoginActivity
-import com.lebudigital.lebudigital.databinding.ActivityBeritaDesaBinding
 import com.lebudigital.lebudigital.databinding.ActivityPelatihanBinding
 import com.lebudigital.lebudigital.model.pelatihan.PelatihanMinggu
 import com.lebudigital.lebudigital.model.pelatihan.PelatihanResponse
 import com.lebudigital.lebudigital.session.SessionManager
 import com.lebudigital.lebudigital.session.SessionProfilManager
-import com.lebudigital.lebudigital.ui.beranda.menu.berita.BeritaDesaDetailActivity
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
 import com.smarteist.autoimageslider.SliderView
@@ -54,11 +55,11 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onStart() {
         super.onStart()
-        get_beritadesa()
+        get_pelatihan()
 
     }
 
-    fun get_beritadesa() {
+    fun get_pelatihan() {
         binding.desaada.visibility = View.VISIBLE
         binding.desatidakada.visibility = View.GONE
 
@@ -140,6 +141,19 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
                                         mAdapter.notifyDataSetChanged()
                                     }
 
+                                    binding.srcPelatihan.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                                        override fun onQueryTextSubmit(p0: String?): Boolean {
+                                            notesList.clear()
+                                            return false
+                                        }
+
+                                        override fun onQueryTextChange(p0: String?): Boolean {
+                                            search_pelatihan(p0,notesList)
+                                            return false
+                                        }
+
+                                    })
+
 
 
                                 }
@@ -175,6 +189,131 @@ class PelatihanActivity : AppCompatActivity(), AnkoLogger {
 
             })
 
+    }
+
+    private fun search_pelatihan(searchTerm: String?, notelist: MutableList<PelatihanMinggu>) {
+        notelist.clear()
+        if (!TextUtils.isEmpty(searchTerm)) {
+            val serchtext: String =
+                searchTerm!!.substring(0, 1).toUpperCase() + searchTerm.substring(1)
+
+            api.search_pelatihan(
+                Constant.API_KEY_BACKEND,
+                sessionManager.getiduser().toString(),
+                serchtext
+            ).enqueue(object : Callback<PelatihanResponse> {
+                override fun onResponse(
+                    call: Call<PelatihanResponse>,
+                    response: Response<PelatihanResponse>
+                ) {
+                    try {
+                        if (response.isSuccessful) {
+                            val notesList = mutableListOf<PelatihanMinggu>()
+                            val data = response.body()
+                            for (hasil in data!!.pelatihanMingguIni!!) {
+                                notesList.add(hasil)
+                                mAdapter = PelatihanDesaAdapter(notesList)
+                                binding.rvpelatihan.adapter = mAdapter
+
+                                mAdapter.setDialog(object : PelatihanDesaAdapter.Dialog {
+                                    override fun onClick(
+                                        position: Int,
+                                        PelatihanMinggu: PelatihanMinggu
+                                    ) {
+                                        val gson = Gson()
+                                        val noteJson = gson.toJson(PelatihanMinggu)
+                                        startActivity<DetailPelatihanActivity>(
+                                            "pelatihan" to noteJson
+                                        )
+
+                                    }
+
+                                })
+                                mAdapter.notifyDataSetChanged()
+                            }
+
+                            binding.srcPelatihan.setOnQueryTextListener(object :
+                                SearchView.OnQueryTextListener {
+                                override fun onQueryTextSubmit(p0: String?): Boolean {
+                                    notesList.clear()
+                                    return false
+                                }
+
+                                override fun onQueryTextChange(p0: String?): Boolean {
+                                    search_pelatihan(p0, notesList)
+                                    return false
+                                }
+
+                            })
+                        } else {
+                            toast("gagal mendapatkan response")
+                        }
+                    } catch (e: Exception) {
+                        info { "dinda ${e.message}" }
+                    }
+                }
+
+                override fun onFailure(call: Call<PelatihanResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+
+            val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.VERTICAL,
+                false
+            )
+
+        } else {
+            notelist.clear()
+            api.pelatihan(Constant.API_KEY_BACKEND, sessionManager.getiduser()!!)
+                .enqueue(object : Callback<PelatihanResponse> {
+                    override fun onResponse(
+                        call: Call<PelatihanResponse>,
+                        response: Response<PelatihanResponse>
+                    ) {
+                        try {
+                            if (response.isSuccessful) {
+                                val notesList = mutableListOf<PelatihanMinggu>()
+                                val data = response.body()
+                                for (hasil in data!!.pelatihanMingguIni!!) {
+                                    notesList.add(hasil)
+                                    mAdapter = PelatihanDesaAdapter(notesList)
+                                    binding.rvpelatihan.adapter = mAdapter
+
+                                    mAdapter.setDialog(object : PelatihanDesaAdapter.Dialog {
+                                        override fun onClick(
+                                            position: Int,
+                                            PelatihanMinggu: PelatihanMinggu
+                                        ) {
+                                            val gson = Gson()
+                                            val noteJson = gson.toJson(PelatihanMinggu)
+                                            startActivity<DetailPelatihanActivity>(
+                                                "pelatihan" to noteJson
+                                            )
+
+                                        }
+
+                                    })
+                                    mAdapter.notifyDataSetChanged()
+                                }
+
+                            } else {
+                                toast("gagal mendapatkan response")
+                            }
+                        } catch (e: Exception) {
+                            info { "dinda ${e.message}" }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PelatihanResponse>, t: Throwable) {
+                        info { "dinda ${t.message}" }
+                    }
+
+                })
+        }
     }
     private fun setImageInSlider(
         images: ArrayList<String>,

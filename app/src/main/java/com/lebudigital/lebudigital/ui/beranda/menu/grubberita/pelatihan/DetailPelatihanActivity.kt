@@ -38,6 +38,13 @@ class DetailPelatihanActivity : AppCompatActivity() {
         binding.txtnarasumber.text = pelatihan!!.naraSumber.toString()
         binding.txtkontak.text = pelatihan!!.kontakPerson.toString()
         binding.txtlink.text = pelatihan!!.linkPendaftaran.toString()
+        binding.txtlink.setOnClickListener {
+            val url = pelatihan!!.linkPendaftaran
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+
+        }
         binding.txtdeskripsi.text = pelatihan!!.deskripsi.toString()
         binding.txtalamat.text = pelatihan!!.lokasiKegiatan.toString()
 

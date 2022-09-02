@@ -3,9 +3,12 @@ package com.lebudigital.lebudigital.ui.beranda.menu.grubberita.kegiatandesa
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
@@ -42,7 +45,7 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
         sessionManager = SessionManager(this)
         sessionProfilManager = SessionProfilManager(this)
 
-        binding.rvkegiatandesa.layoutManager = LinearLayoutManager(this, )
+        binding.rvkegiatandesa.layoutManager = LinearLayoutManager(this)
         binding.rvkegiatandesa.setHasFixedSize(true)
         (binding.rvkegiatandesa.layoutManager as LinearLayoutManager).orientation =
             LinearLayoutManager.VERTICAL
@@ -50,7 +53,6 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
         binding.btnback.setOnClickListener {
             finish()
         }
-
 
 
     }
@@ -66,7 +68,7 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
         binding.desaada.visibility = View.VISIBLE
         binding.desatidakada.visibility = View.GONE
         binding.shimmermakanan.startShimmer()
-        api.kegiatandesa(Constant.API_KEY_BACKEND,sessionManager.getiduser()!!)
+        api.kegiatandesa(Constant.API_KEY_BACKEND, sessionManager.getiduser()!!)
             .enqueue(object : Callback<KegiatanDesaResponse> {
                 override fun onResponse(
                     call: Call<KegiatanDesaResponse>,
@@ -77,19 +79,18 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
                             val notesList = mutableListOf<KegiatanDesaModel>()
                             val data = response.body()
 
-                            if (data!!.status == 0){
+                            if (data!!.status == 0) {
                                 binding.desaada.visibility = View.GONE
                                 binding.desatidakada.visibility = View.VISIBLE
                             }
 
-                            if (data.status == 1){
+                            if (data.status == 1) {
                                 if (data.kegiatandesa!!.isEmpty()) {
                                     binding.shimmermakanan.stopShimmer()
                                     binding.shimmermakanan.visibility = View.GONE
                                     binding.txtnodata.visibility = View.VISIBLE
                                     binding.rvkegiatandesa.visibility = View.GONE
-                                }
-                                else {
+                                } else {
                                     binding.shimmermakanan.stopShimmer()
                                     binding.shimmermakanan.visibility = View.GONE
                                     binding.txtnodata.visibility = View.GONE
@@ -119,10 +120,23 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
                                         mAdapter.notifyDataSetChanged()
                                     }
 
+                                    binding.srcKegiatandesa.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                                        override fun onQueryTextSubmit(p0: String?): Boolean {
+                                            notesList.clear()
+                                            return false
+                                        }
+
+                                        override fun onQueryTextChange(p0: String?): Boolean {
+                                            search_kegitandesa(p0,notesList)
+                                            return false
+                                        }
+
+                                    })
+
                                 }
 
                             }
-                            if (data.status == 2){
+                            if (data.status == 2) {
                                 sessionManager.setLogin(false)
                                 sessionManager.setLoginadmin(false)
                                 sessionProfilManager.setAlamat("")
@@ -153,6 +167,130 @@ class KegiatanDesaActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
+    private fun search_kegitandesa(searchTerm: String?, notelist: MutableList<KegiatanDesaModel>) {
+        notelist.clear()
+        if (!TextUtils.isEmpty(searchTerm)) {
+            val serchtext: String =
+                searchTerm!!.substring(0, 1).toUpperCase() + searchTerm.substring(1)
+
+            api.search_kegiatandesa(
+                Constant.API_KEY_BACKEND,
+                sessionManager.getiduser().toString(),
+                serchtext
+            ).enqueue(object : Callback<KegiatanDesaResponse> {
+                override fun onResponse(
+                    call: Call<KegiatanDesaResponse>,
+                    response: Response<KegiatanDesaResponse>
+                ) {
+                    try {
+                        if (response.isSuccessful) {
+                            val notesList = mutableListOf<KegiatanDesaModel>()
+                            val data = response.body()
+                            for (hasil in data!!.kegiatandesa!!) {
+                                notesList.add(hasil)
+                                mAdapter = KegiatanDesaAdapter(notesList)
+                                binding.rvkegiatandesa.adapter = mAdapter
+
+                                mAdapter.setDialog(object : KegiatanDesaAdapter.Dialog {
+                                    override fun onClick(
+                                        position: Int,
+                                        KegiatanDesaModel: KegiatanDesaModel
+                                    ) {
+                                        val gson = Gson()
+                                        val noteJson = gson.toJson(KegiatanDesaModel)
+                                        startActivity<KegiatanDesaDetailActivity>(
+                                            "kegiatandesa" to noteJson
+                                        )
+
+                                    }
+
+                                })
+                                mAdapter.notifyDataSetChanged()
+                            }
+
+                            binding.srcKegiatandesa.setOnQueryTextListener(object :
+                                SearchView.OnQueryTextListener {
+                                override fun onQueryTextSubmit(p0: String?): Boolean {
+                                    notesList.clear()
+                                    return false
+                                }
+
+                                override fun onQueryTextChange(p0: String?): Boolean {
+                                    search_kegitandesa(p0, notesList)
+                                    return false
+                                }
+
+                            })
+                        } else {
+                            toast("gagal mendapatkan response")
+                        }
+                    } catch (e: Exception) {
+                        info { "dinda ${e.message}" }
+                    }
+                }
+
+                override fun onFailure(call: Call<KegiatanDesaResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+
+            val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.VERTICAL,
+                false
+            )
+
+        } else {
+            notelist.clear()
+            api.kegiatandesa(Constant.API_KEY_BACKEND, sessionManager.getiduser()!!)
+                .enqueue(object : Callback<KegiatanDesaResponse> {
+                    override fun onResponse(
+                        call: Call<KegiatanDesaResponse>,
+                        response: Response<KegiatanDesaResponse>
+                    ) {
+                        try {
+                            if (response.isSuccessful) {
+                                val notesList = mutableListOf<KegiatanDesaModel>()
+                                val data = response.body()
+                                for (hasil in data!!.kegiatandesa!!) {
+                                    notesList.add(hasil)
+                                    mAdapter = KegiatanDesaAdapter(notesList)
+                                    binding.rvkegiatandesa.adapter = mAdapter
+
+                                    mAdapter.setDialog(object : KegiatanDesaAdapter.Dialog {
+                                        override fun onClick(
+                                            position: Int,
+                                            KegiatanDesaModel: KegiatanDesaModel
+                                        ) {
+                                            val gson = Gson()
+                                            val noteJson = gson.toJson(KegiatanDesaModel)
+                                            startActivity<KegiatanDesaDetailActivity>(
+                                                "kegiatandesa" to noteJson
+                                            )
+
+                                        }
+
+                                    })
+                                    mAdapter.notifyDataSetChanged()
+                                }
+
+                            } else {
+                                toast("gagal mendapatkan response")
+                            }
+                        } catch (e: Exception) {
+                            info { "dinda ${e.message}" }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<KegiatanDesaResponse>, t: Throwable) {
+                        info { "dinda ${t.message}" }
+                    }
+
+                })
+        }
+    }
 
 
 }

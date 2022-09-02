@@ -65,10 +65,25 @@
             android:padding="20dp"
             android:id="@+id/desaada"
             android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/srcbudayalokal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/kotakinput"
+                android:queryHint="Cari sesuatu ..."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Budaya Lokal"
                 android:textColor="@color/black"

@@ -117,11 +117,26 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/imageSlider">
 
+                    <SearchView
+                        android:id="@+id/src_pelatihan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/kotakinput"
+                        android:focusableInTouchMode="true"
+                        android:iconifiedByDefault="false"
+                        android:queryHint="Cari sesuatu ..." />
+
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/src_pelatihan"
                         android:fontFamily="@font/roboto_medium"
                         android:text="Minggu Ini"
                         android:textColor="#313131"

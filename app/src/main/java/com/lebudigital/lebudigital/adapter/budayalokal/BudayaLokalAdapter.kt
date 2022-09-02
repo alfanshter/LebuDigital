@@ -60,15 +60,15 @@ class BudayaLokalAdapter(
         Picasso.get().load(Constant.STORAGE + note.foto).centerCrop().fit().into(holder.imgfoto)
         //Subsquence batasan tampilan nama
         if (note.cagarBudaya!!.length > 13) {
-            holder.txtjudul.text = "${note.cagarBudaya.subSequence(0, 13)}.."
+            holder.txtjudul.text = "${note.judul!!.subSequence(0, 13)}.."
         } else {
-            holder.txtjudul.text = note.cagarBudaya
+            holder.txtjudul.text = note.judul
         }
 
         if (note.judul!!.length > 23) {
-            holder.txtdeskripsi.text = "${note.judul.subSequence(0, 23)}.."
+            holder.txtdeskripsi.text = "${note.cagarBudaya.subSequence(0, 23)}.."
         } else {
-            holder.txtdeskripsi.text = note.judul
+            holder.txtdeskripsi.text = note.cagarBudaya
         }
 
 

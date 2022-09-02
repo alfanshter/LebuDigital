@@ -111,9 +111,21 @@ interface ApiService {
         @Header("X-Authorization") token: String
     ): Call<TvccResponse>
 
+    @GET("search_tvcc")
+    fun search_tvcc(
+        @Header("X-Authorization") token: String,
+        @Query("judul") judul: String
+    ): Call<TvccResponse>
+
     @GET("lada")
     fun lada(
         @Header("X-Authorization") token: String
+    ): Call<TvccResponse>
+
+    @GET("search_lada")
+    fun search_lada(
+        @Header("X-Authorization") token: String,
+        @Query("judul") judul: String
     ): Call<TvccResponse>
 
     @GET("bayarbeli")
@@ -121,10 +133,23 @@ interface ApiService {
         @Header("X-Authorization") token: String
     ): Call<TvccResponse>
 
+    @GET("search_bayarbeli")
+    fun search_bayarbeli(
+        @Header("X-Authorization") token: String,
+        @Query("judul") judul: String
+    ): Call<TvccResponse>
+
     @GET("pasardesa")
     fun pasardesa(
         @Header("X-Authorization") token: String
     ): Call<TvccResponse>
+
+    @GET("search_pasardesa")
+    fun search_pasardesa(
+        @Header("X-Authorization") token: String,
+        @Query("judul") judul: String
+    ): Call<TvccResponse>
+
     //=======================END TVCC==================
 
     //=======================PROFIL DESA=====================
@@ -143,6 +168,13 @@ interface ApiService {
         @Query("id") id: Int
     ): Call<FasilitasResponse>
 
+    @GET("search_fasilitasdesa")
+    fun search_fasilitasdesa(
+        @Header("X-Authorization") token: String,
+        @Query("id") id: String,
+        @Query("fasilitas") fasilitas: String
+    ): Call<FasilitasResponse>
+
     //=======================END FASILITAS DESA==================
 
     //=======================BUDAYA LOKAL==================
@@ -150,6 +182,13 @@ interface ApiService {
     fun budayalokal(
         @Header("X-Authorization") token: String,
         @Query("id") id: Int
+    ): Call<BudayaLokalResponse>
+
+    @GET("search_budayalokal")
+    fun search_budayalokal(
+        @Header("X-Authorization") token: String,
+        @Query("id") id: String,
+        @Query("judul") judul: String
     ): Call<BudayaLokalResponse>
     //=======================BUDAYA LOKAL==================
 
@@ -177,6 +216,13 @@ interface ApiService {
         @Header("X-Authorization") token: String,
         @Query("id") id: Int
     ): Call<KegiatanDesaResponse>
+
+    @GET("search_kegiatandesa")
+    fun search_kegiatandesa(
+        @Header("X-Authorization") token: String,
+        @Query("id") id: String,
+        @Query("kegiatan_desa") kegiatan_desa: String
+    ): Call<KegiatanDesaResponse>
     //=======================END Kegiatan Desa==================
 
     //=======================Pelatihan Desa==================
@@ -184,6 +230,13 @@ interface ApiService {
     fun pelatihan(
         @Header("X-Authorization") token: String,
         @Query("id") id: Int
+    ): Call<PelatihanResponse>
+
+    @GET("search_pelatihan")
+    fun search_pelatihan(
+        @Header("X-Authorization") token: String,
+        @Query("id") id: String,
+        @Query("judul") judul: String
     ): Call<PelatihanResponse>
     //=======================END Pelatihan Desa==================
 
