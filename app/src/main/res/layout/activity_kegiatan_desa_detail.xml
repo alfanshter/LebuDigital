@@ -57,17 +57,37 @@
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
+        <ImageView
+            android:id="@+id/imgfoto"
+            android:layout_width="match_parent"
+            android:background="@color/abuputih"
+            android:layout_height="220dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imgvideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btnvideo"
+            app:layout_constraintBottom_toBottomOf="@+id/imgfoto"
+            app:layout_constraintEnd_toEndOf="@+id/imgfoto"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="-20dp"
             android:background="@drawable/kotakcorneratas"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintTop_toBottomOf="@+id/imgfoto"
             app:layout_constraintVertical_bias="0.19999999">
 
 

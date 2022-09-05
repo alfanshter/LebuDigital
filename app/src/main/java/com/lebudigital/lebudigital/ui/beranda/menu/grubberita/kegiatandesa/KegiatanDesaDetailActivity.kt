@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -34,6 +35,7 @@ import com.lebudigital.lebudigital.model.kegiatandesa.KegiatanDesaModel
 import com.lebudigital.lebudigital.ui.beranda.menu.berita.BeritaDesaDetailActivity
 import com.lebudigital.lebudigital.utils.Cepat
 import com.lebudigital.lebudigital.webservice.Constant
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 import retrofit2.Call
@@ -75,6 +77,23 @@ class KegiatanDesaDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.txtjam.text = kegiatandesa!!.jam.toString()
         binding.txttanggal.text = currentDate
 
+        Picasso.get().load(Constant.STORAGE+kegiatandesa!!.foto).centerCrop().fit().into(binding.imgfoto)
+
+        var link_video = kegiatandesa!!.video
+        var potongan_link = link_video!!.subSequence(0, 5)
+
+        binding.imgvideo.setOnClickListener {
+            if (potongan_link == "video") {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(Constant.STORAGE + kegiatandesa!!.video))
+                startActivity(browserIntent)
+            } else {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(kegiatandesa!!.video))
+                startActivity(browserIntent)
+
+            }
+
+        }
         val mapFragment = supportFragmentManager
             .findFragmentById(com.lebudigital.lebudigital.R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)

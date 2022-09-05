@@ -133,18 +133,6 @@ class FasilitasDesaActivity : AppCompatActivity(),AnkoLogger {
                                         mAdapter.notifyDataSetChanged()
                                     }
 
-                                    binding.srcFasilitasdesa.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-                                        override fun onQueryTextSubmit(p0: String?): Boolean {
-                                            notesList.clear()
-                                            return false
-                                        }
-
-                                        override fun onQueryTextChange(p0: String?): Boolean {
-                                            search_fasilitas(p0,notesList)
-                                            return false
-                                        }
-
-                                    })
 
                                     mAdapter.setDialog(object : FasilitasAdapter.Dialog {
 
@@ -192,118 +180,6 @@ class FasilitasDesaActivity : AppCompatActivity(),AnkoLogger {
 
             })
 
-    }
-    private fun search_fasilitas(searchTerm: String?,notelist : MutableList<FasilitasModel>) {
-        notelist.clear()
-        if (!TextUtils.isEmpty(searchTerm)) {
-            val serchtext: String =
-                searchTerm!!.substring(0, 1).toUpperCase() + searchTerm.substring(1)
-
-            api.search_fasilitasdesa(Constant.API_KEY_BACKEND,sessionManager.getiduser().toString(),serchtext).enqueue(object : Callback<FasilitasResponse>{
-                override fun onResponse(
-                    call: Call<FasilitasResponse>,
-                    response: Response<FasilitasResponse>
-                ) {
-                    try {
-                        if (response.isSuccessful) {
-                            val notesList = mutableListOf<FasilitasModel>()
-                            val data = response.body()
-                            for (hasil in data!!.fasilitas!!) {
-                                notesList.add(hasil)
-                                mAdapter = FasilitasAdapter(notesList)
-                                binding.rvfasilitas.adapter = mAdapter
-
-                                mAdapter.setDialog(object : FasilitasAdapter.Dialog{
-                                    override fun onClick(position: Int, FasilitasModel: FasilitasModel) {
-                                        val gson = Gson()
-                                        val noteJson = gson.toJson(FasilitasModel)
-                                        startActivity<DetailFasilitasActivity>(
-                                            "fasilitas" to noteJson
-                                        )
-                                    }
-
-                                })
-                                mAdapter.notifyDataSetChanged()
-                            }
-
-                            binding.srcFasilitasdesa.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-                                override fun onQueryTextSubmit(p0: String?): Boolean {
-                                    notesList.clear()
-                                    return false
-                                }
-
-                                override fun onQueryTextChange(p0: String?): Boolean {
-                                    search_fasilitas(p0,notesList)
-                                    return false
-                                }
-
-                            })
-                        } else {
-                            toast("gagal mendapatkan response")
-                        }
-                    } catch (e: Exception) {
-                        info { "dinda ${e.message}" }
-                    }
-                }
-
-                override fun onFailure(call: Call<FasilitasResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-            })
-
-
-            val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
-                this,
-                RecyclerView.VERTICAL,
-                false
-            )
-
-        } else {
-            notelist.clear()
-            api.fasilitasdesa(Constant.API_KEY_BACKEND,sessionManager.getiduser()!!)
-                .enqueue(object : Callback<FasilitasResponse> {
-                    override fun onResponse(
-                        call: Call<FasilitasResponse>,
-                        response: Response<FasilitasResponse>
-                    ) {
-                        try {
-                            if (response.isSuccessful) {
-                                val notesList = mutableListOf<FasilitasModel>()
-                                val data = response.body()
-                                for (hasil in data!!.fasilitas!!) {
-                                    notesList.add(hasil)
-                                    mAdapter = FasilitasAdapter(notesList)
-                                    binding.rvfasilitas.adapter = mAdapter
-
-                                    mAdapter.setDialog(object : FasilitasAdapter.Dialog{
-                                        override fun onClick(position: Int, FasilitasModel: FasilitasModel) {
-                                            val gson = Gson()
-                                            val noteJson = gson.toJson(FasilitasModel)
-                                            startActivity<DetailFasilitasActivity>(
-                                                "fasilitas" to noteJson
-                                            )
-
-                                        }
-
-                                    })
-                                    mAdapter.notifyDataSetChanged()
-                                }
-
-                            } else {
-                                toast("gagal mendapatkan response")
-                            }
-                        } catch (e: Exception) {
-                            info { "dinda ${e.message}" }
-                        }
-                    }
-
-                    override fun onFailure(call: Call<FasilitasResponse>, t: Throwable) {
-                        info { "dinda ${t.message}" }
-                    }
-
-                })
-        }
     }
 
     private fun setImageInSlider(

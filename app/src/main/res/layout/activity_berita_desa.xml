@@ -131,13 +131,27 @@
 
             </LinearLayout>
 
+            <SearchView
+                android:id="@+id/src_berita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/kotakinput"
+                android:focusableInTouchMode="true"
+                android:iconifiedByDefault="false"
+                android:layout_marginTop="10dp"
+                android:queryHint="Cari sesuatu ..."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
             <RelativeLayout
                 android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+                app:layout_constraintTop_toBottomOf="@+id/src_berita">
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -6,14 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
+import com.lebudigital.lebudigital.adapter.banner.BannerAdapter
 import com.lebudigital.lebudigital.adapter.beritadesa.BeritaDesaPopular
+import com.lebudigital.lebudigital.adapter.profildesa.DataStatistikAdapter
+import com.lebudigital.lebudigital.auth.LoginActivity
 import com.lebudigital.lebudigital.databinding.FragmentBerandaBinding
+import com.lebudigital.lebudigital.model.banner.BannerModel
+import com.lebudigital.lebudigital.model.banner.BannerResponse
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaModel
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaResponse
+import com.lebudigital.lebudigital.model.profildesa.DataStatistikModel
+import com.lebudigital.lebudigital.model.profildesa.GambarDesaModel
+import com.lebudigital.lebudigital.model.profildesa.ProfilResponse
 import com.lebudigital.lebudigital.session.SessionManager
 import com.lebudigital.lebudigital.session.SessionProfilManager
+import com.lebudigital.lebudigital.ui.beranda.banner.BannerActivity
 import com.lebudigital.lebudigital.ui.beranda.menu.berita.BeritaDesaActivity
 import com.lebudigital.lebudigital.ui.beranda.menu.berita.BeritaDesaDetailActivity
 import com.lebudigital.lebudigital.ui.beranda.menu.berita.budaya.BudayaLokalActivity
@@ -135,7 +146,7 @@ class BerandaFragment : Fragment(),AnkoLogger {
             startActivity<PelatihanActivity>()
         }
 
-
+        getbanner()
         get_beritadesa_popular()
 
 
@@ -196,6 +207,60 @@ class BerandaFragment : Fragment(),AnkoLogger {
 
     }
 
+    fun getbanner(){
+        //gambar desa
+        var bannermodel = mutableListOf<BannerModel>()
+
+        api.get_banner(Constant.API_KEY_BACKEND,sessionManager.getiduser().toString())
+            .enqueue(object : Callback<BannerResponse> {
+                override fun onResponse(
+                    call: Call<BannerResponse>,
+                    response: Response<BannerResponse>
+                ) {
+                    try {
+                        if (response.isSuccessful) {
+                            val data = response.body()
+                            info { "dinda banner $data" }
+
+                            if (response.body()!!.status == 0){
+                                binding.shimmerbanner.visibility = View.GONE
+                                binding.imgkosongbanner.visibility = View.VISIBLE
+                                binding.sliderbanner.visibility = View.GONE
+                            }
+                            else if (response.body()!!.status == 1){
+                                binding.shimmerbanner.visibility = View.GONE
+                                binding.imgkosongbanner.visibility = View.GONE
+                                binding.sliderbanner.visibility = View.VISIBLE
+
+                                val imageList: ArrayList<String> = ArrayList()
+
+                                for (banner in data!!.data!!){
+                                    bannermodel.add(banner)
+                                    //slider
+                                    imageList.add(Constant.STORAGE + banner.foto!!)
+
+                                }
+                                setBannerSlider(imageList, binding.sliderbanner, bannermodel)
+
+
+                            }
+
+
+                        } else {
+                            toast("gagal mendapatkan response")
+                        }
+                    } catch (e: Exception) {
+                        info { "dinda ${e.message}" }
+                    }
+                }
+
+                override fun onFailure(call: Call<BannerResponse>, t: Throwable) {
+                    info { "dinda ${t.message}" }
+                }
+
+            })
+
+    }
     private fun setImageInSlider(
         images: ArrayList<String>,
         imageSlider: SliderView,
@@ -219,6 +284,32 @@ class BerandaFragment : Fragment(),AnkoLogger {
         binding.imageSlider.scrollTimeInSec = 3
         binding.imageSlider.startAutoCycle()
     }
+
+    private fun setBannerSlider(
+        images: ArrayList<String>,
+        imageSlider: SliderView,
+        sliderModel: MutableList<BannerModel>
+    ) {
+        val adapter = BannerAdapter()
+        adapter.setDialog(object : BannerAdapter.Dialog {
+            override fun onClick(position: Int, note: BannerModel) {
+                val gson = Gson()
+                val noteJson = gson.toJson(note)
+                startActivity<BannerActivity>(
+                    "banner" to noteJson
+                )
+
+            }
+
+        })
+        adapter.renewItems(images, sliderModel)
+        binding.sliderbanner.setSliderAdapter(adapter)
+        binding.sliderbanner.isAutoCycle = true
+        binding.sliderbanner.scrollTimeInSec = 3
+        binding.sliderbanner.startAutoCycle()
+    }
+
+
 
 
 }

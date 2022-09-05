@@ -4,6 +4,7 @@ import com.lebudigital.lebudigital.model.auth.PostRegister
 import com.lebudigital.lebudigital.model.auth.PostResponse
 import com.lebudigital.lebudigital.model.auth.UpdataProfilResponse
 import com.lebudigital.lebudigital.model.auth.UsersModel
+import com.lebudigital.lebudigital.model.banner.BannerResponse
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaResponse
 import com.lebudigital.lebudigital.model.budayalokal.BudayaLokalResponse
 import com.lebudigital.lebudigital.model.chatpencarian.PencarianUserResponse
@@ -265,6 +266,13 @@ interface ApiService {
         @Header("X-Authorization") token: String,
         @Query("id") id: Int
     ): Call<PostResponse>
+
+    @GET("search_berita")
+    fun search_berita(
+        @Header("X-Authorization") token: String,
+        @Query("id") id: String,
+        @Query("judul") judul: String
+    ): Call<BeritaDesaResponse>
     //=======================END BERITA DESA==================
 
     //=====================WILAYAH=====================
@@ -293,4 +301,14 @@ interface ApiService {
     fun search_user(
         @Query("email") email: String
     ): Call<PencarianUserResponse>
+
+    //=====================BANNER=====================
+    @GET("get_banner")
+    fun get_banner(
+        @Header("X-Authorization") token: String,
+        @Query("id") id: String): Call<BannerResponse>
+    //=====================END BANNER=====================
+
+
+
 }

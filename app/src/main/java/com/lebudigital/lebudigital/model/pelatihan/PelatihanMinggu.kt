@@ -14,12 +14,12 @@ data class PelatihanMinggu(
 
     @field:SerializedName("video")
     val video: String? = null,
-
+    @field:SerializedName("foto")
+    val foto: String? = null,
     @field:SerializedName("nara_sumber")
     val naraSumber: String? = null,
 
-    @field:SerializedName("foto")
-    val foto: String? = null,
+
 
     @field:SerializedName("updated_at")
     val updatedAt: String? = null,

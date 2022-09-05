@@ -36,5 +36,11 @@ data class KegiatanDesaModel(
     val alamat: String? = null,
 
     @field:SerializedName("longitude")
-    val longitude: String? = null
+    val longitude: String? = null,
+
+    @field:SerializedName("video")
+    val video: String? = null,
+
+    @field:SerializedName("foto")
+    val foto: String? = null
 )

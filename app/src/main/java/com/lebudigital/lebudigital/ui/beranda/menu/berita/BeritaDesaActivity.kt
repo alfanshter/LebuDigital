@@ -3,9 +3,12 @@ package com.lebudigital.lebudigital.ui.beranda.menu.berita
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.lebudigital.lebudigital.MainActivity
 import com.lebudigital.lebudigital.R
@@ -15,8 +18,10 @@ import com.lebudigital.lebudigital.auth.LoginActivity
 import com.lebudigital.lebudigital.databinding.ActivityBeritaDesaBinding
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaModel
 import com.lebudigital.lebudigital.model.beritadesa.BeritaDesaResponse
+
 import com.lebudigital.lebudigital.session.SessionManager
 import com.lebudigital.lebudigital.session.SessionProfilManager
+import com.lebudigital.lebudigital.ui.beranda.menu.grubberita.kegiatandesa.KegiatanDesaDetailActivity
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
 import com.smarteist.autoimageslider.SliderView
@@ -119,7 +124,18 @@ class BeritaDesaActivity : AppCompatActivity(), AnkoLogger {
 
                                         mAdapter.notifyDataSetChanged()
                                     }
+                                    binding.srcBerita.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                                        override fun onQueryTextSubmit(p0: String?): Boolean {
+                                            notesList.clear()
+                                            return false
+                                        }
 
+                                        override fun onQueryTextChange(p0: String?): Boolean {
+                                            search_berita(p0,notesList)
+                                            return false
+                                        }
+
+                                    })
 
                                 }
 
@@ -224,6 +240,132 @@ class BeritaDesaActivity : AppCompatActivity(), AnkoLogger {
         binding.imageSlider.scrollTimeInSec = 3
         binding.imageSlider.startAutoCycle()
     }
+
+    private fun search_berita(searchTerm: String?, notelist: MutableList<BeritaDesaModel>) {
+        notelist.clear()
+        if (!TextUtils.isEmpty(searchTerm)) {
+            val serchtext: String =
+                searchTerm!!.substring(0, 1).toUpperCase() + searchTerm.substring(1)
+
+            api.search_berita(
+                Constant.API_KEY_BACKEND,
+                sessionManager.getiduser().toString(),
+                serchtext
+            ).enqueue(object : Callback<BeritaDesaResponse> {
+                override fun onResponse(
+                    call: Call<BeritaDesaResponse>,
+                    response: Response<BeritaDesaResponse>
+                ) {
+                    try {
+                        if (response.isSuccessful) {
+                            val notesList = mutableListOf<BeritaDesaModel>()
+                            val data = response.body()
+                            for (hasil in data!!.data!!) {
+                                notesList.add(hasil)
+                                mAdapter = BeritaDesaAdapter(notesList)
+                                binding.rvberita.adapter = mAdapter
+
+                                mAdapter.setDialog(object : BeritaDesaAdapter.Dialog {
+                                    override fun onClick(
+                                        position: Int,
+                                        BeritaDesaModel: BeritaDesaModel
+                                    ) {
+                                        val gson = Gson()
+                                        val noteJson = gson.toJson(BeritaDesaModel)
+                                        startActivity<KegiatanDesaDetailActivity>(
+                                            "kegiatandesa" to noteJson
+                                        )
+
+                                    }
+
+                                })
+                                mAdapter.notifyDataSetChanged()
+                            }
+
+                            binding.srcBerita.setOnQueryTextListener(object :
+                                SearchView.OnQueryTextListener {
+                                override fun onQueryTextSubmit(p0: String?): Boolean {
+                                    notesList.clear()
+                                    return false
+                                }
+
+                                override fun onQueryTextChange(p0: String?): Boolean {
+                                    search_berita(p0, notesList)
+                                    return false
+                                }
+
+                            })
+                        } else {
+                            toast("gagal mendapatkan response")
+                        }
+                    } catch (e: Exception) {
+                        info { "dinda ${e.message}" }
+                    }
+                }
+
+                override fun onFailure(call: Call<BeritaDesaResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+
+            val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
+                this,
+                RecyclerView.VERTICAL,
+                false
+            )
+
+        } else {
+            notelist.clear()
+            api.beritadesa(Constant.API_KEY_BACKEND, sessionManager.getiduser()!!)
+                .enqueue(object : Callback<BeritaDesaResponse> {
+                    override fun onResponse(
+                        call: Call<BeritaDesaResponse>,
+                        response: Response<BeritaDesaResponse>
+                    ) {
+                        try {
+                            if (response.isSuccessful) {
+                                val notesList = mutableListOf<BeritaDesaModel>()
+                                val data = response.body()
+                                for (hasil in data!!.data!!) {
+                                    notesList.add(hasil)
+                                    mAdapter = BeritaDesaAdapter(notesList)
+                                    binding.rvberita.adapter = mAdapter
+
+                                    mAdapter.setDialog(object : BeritaDesaAdapter.Dialog {
+                                        override fun onClick(
+                                            position: Int,
+                                            BeritaDesaModel: BeritaDesaModel
+                                        ) {
+                                            val gson = Gson()
+                                            val noteJson = gson.toJson(BeritaDesaModel)
+                                            startActivity<KegiatanDesaDetailActivity>(
+                                                "kegiatandesa" to noteJson
+                                            )
+
+                                        }
+
+                                    })
+                                    mAdapter.notifyDataSetChanged()
+                                }
+
+                            } else {
+                                toast("gagal mendapatkan response")
+                            }
+                        } catch (e: Exception) {
+                            info { "dinda ${e.message}" }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BeritaDesaResponse>, t: Throwable) {
+                        info { "dinda ${t.message}" }
+                    }
+
+                })
+        }
+    }
+
 
 
 }
