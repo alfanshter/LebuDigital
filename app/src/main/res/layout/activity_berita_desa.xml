@@ -139,8 +139,8 @@
                 android:background="@drawable/kotakinput"
                 android:focusableInTouchMode="true"
                 android:iconifiedByDefault="false"
-                android:layout_marginTop="10dp"
                 android:queryHint="Cari sesuatu ..."
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />

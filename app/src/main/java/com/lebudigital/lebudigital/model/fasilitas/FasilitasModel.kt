@@ -25,5 +25,14 @@ data class FasilitasModel(
     val fasilitas: String? = null,
 
     @field:SerializedName("deskripsi")
-    val deskripsi: String? = null
+    val deskripsi: String? = null,
+
+    @field:SerializedName("latitude")
+    val latitude: String? = null,
+
+    @field:SerializedName("longitude")
+    val longitude: String? = null,
+
+    @field:SerializedName("icon")
+    val icon: String? = null
 )

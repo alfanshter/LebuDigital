@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -70,10 +71,10 @@ class FasilitasDesaActivity : AppCompatActivity(),AnkoLogger {
         var gambarmodel = mutableListOf<GambarDesaModel>()
 
         //datastatistik
-        binding.rvfasilitas.layoutManager = LinearLayoutManager(this)
+        binding.rvfasilitas.layoutManager = GridLayoutManager(this,2)
         binding.rvfasilitas.setHasFixedSize(true)
-        (binding.rvfasilitas.layoutManager as LinearLayoutManager).orientation =
-            LinearLayoutManager.VERTICAL
+        (binding.rvfasilitas.layoutManager as GridLayoutManager).orientation =
+            GridLayoutManager.VERTICAL
 
         api.fasilitasdesa(Constant.API_KEY_BACKEND,sessionManager.getiduser()!!)
             .enqueue(object : Callback<FasilitasResponse> {

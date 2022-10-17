@@ -22,11 +22,13 @@ import com.google.gson.Gson
 import com.lebudigital.lebudigital.R
 import com.lebudigital.lebudigital.databinding.ActivityUpdateProfilBinding
 import com.lebudigital.lebudigital.model.auth.UpdataProfilResponse
+import com.lebudigital.lebudigital.model.users.ProfilResponse
 import com.lebudigital.lebudigital.model.users.UsersResponse
 import com.lebudigital.lebudigital.webservice.ApiClient
 import com.lebudigital.lebudigital.webservice.Constant
 import com.squareup.picasso.Picasso
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.jetbrains.anko.AnkoLogger
@@ -40,7 +42,7 @@ import java.io.File
 
 class UpdateProfilActivity : AppCompatActivity(), AnkoLogger {
     lateinit var binding: ActivityUpdateProfilBinding
-    var profil: UsersResponse? = null
+    var profil: ProfilResponse? = null
 
     lateinit var progressDialog: ProgressDialog
 
@@ -68,32 +70,32 @@ class UpdateProfilActivity : AppCompatActivity(), AnkoLogger {
 
 
         val gson = Gson()
-        profil = gson.fromJson(intent.getStringExtra("profil"), UsersResponse::class.java)
-
-        binding.edtnama.setText(profil!!.name)
-        binding.edttelepon.setText(profil!!.telepon)
-        binding.edtemail.setText(profil!!.email)
-        binding.edtalamat.setText(profil!!.alamatLengkap)
-        if (profil!!.nik == null) {
+        profil = gson.fromJson(intent.getStringExtra("profil"), ProfilResponse::class.java)
+        info { "dinda profil $profil" }
+        binding.edtnama.setText(profil!!.profil!!.name)
+        binding.edttelepon.setText(profil!!.profil!!.telepon)
+        binding.edtemail.setText(profil!!.profil!!.email)
+        binding.edtalamat.setText(profil!!.profil!!.alamatLengkap)
+        if (profil!!.profil!!.nik == null) {
             binding.edtnik.hint = "Masukkan NIK"
         } else {
-            binding.edtnik.setText(profil!!.nik)
+            binding.edtnik.setText(profil!!.profil!!.nik)
         }
 
-        if (profil!!.fotoKtp != null) {
-            Picasso.get().load(Constant.STORAGE + profil!!.fotoKtp).fit().centerCrop()
+        if (profil!!.profil!!.fotoKtp != null) {
+            Picasso.get().load(Constant.STORAGE + profil!!.profil!!.fotoKtp).fit().centerCrop()
                 .into(binding.imgfotoktp)
         }
-        if (profil!!.fotoKk != null) {
-            Picasso.get().load(Constant.STORAGE + profil!!.fotoKk).fit().centerCrop()
+        if (profil!!.profil!!.fotoKk != null) {
+            Picasso.get().load(Constant.STORAGE + profil!!.profil!!.fotoKk).fit().centerCrop()
                 .into(binding.imgkk)
         }
-        if (profil!!.foto_akta != null) {
-            Picasso.get().load(Constant.STORAGE + profil!!.foto_akta).fit().centerCrop()
+        if (profil!!.profil!!.foto_akta != null) {
+            Picasso.get().load(Constant.STORAGE + profil!!.profil!!.foto_akta).fit().centerCrop()
                 .into(binding.imgakta)
         }
-        if (profil!!.foto != null) {
-            Picasso.get().load(Constant.STORAGE + profil!!.foto).fit().centerCrop()
+        if (profil!!.profil!!.foto != null) {
+            Picasso.get().load(Constant.STORAGE + profil!!.profil!!.foto).fit().centerCrop()
                 .into(binding.imgfoto)
         }
 
@@ -244,52 +246,52 @@ class UpdateProfilActivity : AppCompatActivity(), AnkoLogger {
 
             //foto
             if (data != null) {
-                val reqFile = RequestBody.create(MediaType.parse("image/*"), data)
+                val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), data!!)
                 foto_profil = MultipartBody.Part.createFormData("foto", f.name, reqFile)
             }
             if (data_akta != null) {
-                val reqFile = RequestBody.create(MediaType.parse("image/*"), data_akta)
+                val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), data_akta!!)
                 foto_akta = MultipartBody.Part.createFormData("foto_akta", f_akta.name, reqFile)
             }
 
             if (data_ktp != null) {
-                val reqFile = RequestBody.create(MediaType.parse("image/*"), data_ktp)
+                val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), data_ktp!!)
                 foto_ktp = MultipartBody.Part.createFormData("foto_ktp", f_ktp.name, reqFile)
             }
 
             if (data_kk != null) {
-                val reqFile = RequestBody.create(MediaType.parse("image/*"), data_kk)
+                val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), data_kk!!)
                 foto_kk = MultipartBody.Part.createFormData("foto_kk", f_kk.name, reqFile)
             }
 
 
             val id: RequestBody = RequestBody.create(
-                MediaType.parse("text/plain"),
-                profil!!.id.toString()
+                "text/plain".toMediaTypeOrNull(),
+                profil!!.profil!!.id.toString()
             )
 
             val name: RequestBody = RequestBody.create(
-                MediaType.parse("text/plain"),
+                "text/plain".toMediaTypeOrNull(),
                 edtnama
             )
 
             val email: RequestBody = RequestBody.create(
-                MediaType.parse("text/plain"),
+                "text/plain".toMediaTypeOrNull(),
                 edtemail
             )
 
             val telepon: RequestBody = RequestBody.create(
-                MediaType.parse("text/plain"),
+                "text/plain".toMediaTypeOrNull(),
                 edttelepon
             )
 
             val nik: RequestBody = RequestBody.create(
-                MediaType.parse("text/plain"),
+                "text/plain".toMediaTypeOrNull(),
                 edtnik
             )
 
             val alamat_lengkap: RequestBody = RequestBody.create(
-                MediaType.parse("text/plain"),
+                "text/plain".toMediaTypeOrNull(),
                 edtalamat
             )
 

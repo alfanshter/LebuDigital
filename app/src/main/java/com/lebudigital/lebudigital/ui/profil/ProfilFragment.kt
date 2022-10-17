@@ -81,10 +81,16 @@ class ProfilFragment : Fragment(),AnkoLogger {
                             if (data.status == 1){
                                 val alamat_lengkap = "Desa ${data.profil!!.desa!!.name} Kec. ${data.profil!!.kecamatan!!.name} ${data.profil!!.kabupaten!!.name} Prov. ${data.profil!!.provinsi!!.name} "
 
-                                sessionProfilManager.setNama(data.profil!!.name!!)
-                                sessionProfilManager.setAlamat(alamat_lengkap)
-                                sessionProfilManager.setTelepon(data.profil!!.telepon!!)
+                                if (data.profil!!.name!=null){
+                                    sessionProfilManager.setNama(data.profil!!.name!!)
+                                }
+
+                                if (data.profil!!.telepon!=null){
+                                    sessionProfilManager.setTelepon(data.profil!!.telepon!!)
+                                }
+
                                 sessionProfilManager.setEmail(data.profil!!.email!!)
+                                sessionProfilManager.setAlamat(alamat_lengkap)
 
                                 binding.txtnama.text = data.profil!!.name
                                 binding.txtalamat.text = alamat_lengkap.toLowerCase()

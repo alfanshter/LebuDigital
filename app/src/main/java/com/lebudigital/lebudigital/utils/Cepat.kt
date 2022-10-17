@@ -73,7 +73,7 @@ object  Cepat {
         try {
             val addresses = geocoder.getFromLocation(lat, lon, 1)
 
-            if (addresses.size > 0) {
+            if (addresses!!.size > 0) {
                 val fetchedAddress = addresses.get(0)
                 val strAddress = StringBuilder()
 
